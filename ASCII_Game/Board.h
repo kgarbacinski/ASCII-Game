@@ -17,16 +17,12 @@ using std::vector;
 #pragma once
 class Board{
 private:
-	static Board* instance;
-	Board();
+	vector<string> boardASCII; // contains whole board in ascii
+	
 public:
-	static Board* getInstance() {
-		if (instance == nullptr) {
-			instance = new Board();
-		}
-		return instance;
-	}
+	Board();
+	void readBoardASCII();
 
-	vector<string> getBoard();
+	vector<string> getBoardASCII();
 };
 

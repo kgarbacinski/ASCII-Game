@@ -1,18 +1,15 @@
 #include <iostream>	
-#include "Board.h"
+#include "GameManagement.h"
 using namespace std; 
 
 
 int main() {
-	// Create board
-	Board* board = Board::getInstance();
+	GameManagement* gameManager = GameManagement::getInstance();
 
-	vector<string> boardVec;
-	boardVec = board->getBoard();
-
-	for (auto line : boardVec) {
-		cout << line << endl;
+	gameManager->drawBoard();
+	while (true) {
+		gameManager->drawPlayer();
+		gameManager->movePlayer();
 	}
-
 	
 }
