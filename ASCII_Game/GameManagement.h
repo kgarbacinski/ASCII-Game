@@ -8,7 +8,7 @@ class GameManagement
 {
 private:
 	//Create objects
-	vector<Cannon*> cannons{ new Cannon(5, 25, 1000) };
+	vector<Cannon*> cannons{ new Cannon(5, 25, 1000, true) };
 
 	// Create board
 	Board* board{new Board()};
@@ -25,6 +25,7 @@ public:
 		return instance;
 	}
 
+	// Basic methods
 	void gotoxy(int x, int y);
 	void drawObjects();
 	void putObjects();
@@ -34,6 +35,12 @@ public:
 	void movePlayer();
 
 	int checkIfCollision(int newXPos, int newYPos);
+
+	//Cannons
+	void shootCannonSlow();
+	void shootCannonFast();
+	void moveBullet();
+	void drawBullets();
 
 	Board* getBoard() const;
 	Player* getPlayer() const;

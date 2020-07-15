@@ -8,9 +8,15 @@ class Cannon : public Object
 {
 private:
 	int shootDelay; // in ms
+	char reprBullet{ 'o' };
+	bool isVer;
 
 public:
-	Cannon(int _xPos, int _yPos, int _shootDelay);
-	void drawObject(bool isVer = true);
+	Cannon(int _xPos, int _yPos, int _shootDelay, bool _isVer);
+	
+	void drawObject();
+	void drawBullet(int xPos, int yPos);
+
+	char getReprBullet();
 };
 

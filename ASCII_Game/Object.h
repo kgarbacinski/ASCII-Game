@@ -18,7 +18,7 @@ public:
 		coord.Y = y;
 		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 	}
-	virtual void drawObject(bool isVer = true) = 0;
+	virtual void drawObject() = 0;
 
 	int getXPos() { return this->xPos; }
 	int getYPos() { return this->yPos; }
