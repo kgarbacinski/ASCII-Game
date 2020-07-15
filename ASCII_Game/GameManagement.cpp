@@ -12,6 +12,19 @@ void GameManagement::gotoxy(int x, int y)
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 }
 
+void GameManagement::drawObjects()
+{
+	for (auto cannon : this->cannons) {
+		cannon->drawObject();
+	}
+}
+
+void GameManagement::putObjects() {
+	for (auto cannon : this->cannons) {
+		board->modifyBoardASCII(cannon->getXPos(), cannon->getYPos(), 'c');
+	}
+}
+
 void GameManagement::drawPlayer()
 {
 	this->gotoxy(this->getPlayer()->getxPos(), this->getPlayer()->getyPos()); // place console cursor on certain pos
@@ -78,7 +91,8 @@ void GameManagement::movePlayer()
 int GameManagement::checkIfCollision(int newXPos, int newYPos)
 {
 	// Check wall
-	if (this->board->getBoardASCII().at(newYPos).at(newXPos) == '#') {
+	if (this->board->getBoardASCII().at(newYPos).at(newXPos) == '#' || 
+		this->board->getBoardASCII().at(newYPos).at(newXPos) == 'c') {
 		return 0; // dla sciany
 	}
 
