@@ -1,21 +1,21 @@
 #include "GameManagement.h"
 
+constexpr auto DARK_RED = 4;
+constexpr auto RED = 12;
+constexpr auto LIGHT_BLUE = 11;
+constexpr auto WHITE = 15;
+
 GameManagement* GameManagement::instance = nullptr;
 
 GameManagement::GameManagement() {}
 
-void GameManagement::gotoxy(int x, int y)
-{
-	COORD coord;
-	coord.X = x;
-	coord.Y = y;
-	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-}
 
 void GameManagement::drawObjects()
 {
 	for (auto cannon : this->cannons) {
+		this->changeColor(DARK_RED);
 		cannon->drawObject();
+		this->changeColor(WHITE);
 	}
 }
 
@@ -27,11 +27,13 @@ void GameManagement::putObjects() {
 
 void GameManagement::drawPlayer()
 {
+	this->changeColor(LIGHT_BLUE);
 	this->gotoxy(this->getPlayer()->getxPos(), this->getPlayer()->getyPos()); // place console cursor on certain pos
 	cout << "I";
+	this->changeColor(WHITE);
 }
 
-void GameManagement::clearPlayer(int xPos, int yPos)
+void GameManagement::clearCell(int xPos, int yPos)
 {
 	gotoxy(xPos, yPos);
 	cout << ' ';
@@ -53,7 +55,7 @@ void GameManagement::movePlayer()
 		if (GetKeyState('A') < 0) {
 			if (this->checkIfCollision(xPos - 1, yPos) != 0) { // player on the wall
 				this->player->setxPos(xPos - 1);
-				this->clearPlayer(xPos, yPos);
+				this->clearCell(xPos, yPos);
 
 				this->drawPlayer();
 				Sleep(200);
@@ -64,7 +66,7 @@ void GameManagement::movePlayer()
 		else if (GetKeyState('D') & 0x8000) {
 			if (this->checkIfCollision(xPos + 1, yPos) != 0) {
 				this->player->setxPos(xPos + 1);
-				this->clearPlayer(xPos, yPos);
+				this->clearCell(xPos, yPos);
 				this->drawPlayer();
 				Sleep(200);
 			}
@@ -73,7 +75,7 @@ void GameManagement::movePlayer()
 		else if (GetKeyState('W') & 0x8000) {
 			if (this->checkIfCollision(xPos, yPos - 1) != 0) {
 				this->player->setyPos(yPos - 1);
-				this->clearPlayer(xPos, yPos);
+				this->clearCell(xPos, yPos);
 				this->drawPlayer();
 				Sleep(200);
 			}
@@ -81,19 +83,18 @@ void GameManagement::movePlayer()
 		else if (GetKeyState('S') & 0x8000) {
 			if (this->checkIfCollision(xPos, yPos + 1) != 0) {
 				this->player->setyPos(yPos + 1);
-				this->clearPlayer(xPos, yPos);
+				this->clearCell(xPos, yPos);
 				this->drawPlayer();
 				Sleep(200);
 			}
 		}
 	}
-	
 }
 
 int GameManagement::checkIfCollision(int newXPos, int newYPos)
 {
 	// Check wall
-	if (this->board->getBoardASCII().at(newYPos).at(newXPos) == '#' || 
+	if (this->board->getBoardASCII().at(newYPos).at(newXPos) == '#' ||
 		this->board->getBoardASCII().at(newYPos).at(newXPos) == 'c') {
 		return 0; // dla sciany
 	}
@@ -101,41 +102,76 @@ int GameManagement::checkIfCollision(int newXPos, int newYPos)
 	return -1; // puste pole
 }
 
-void GameManagement::moveBullet()
+void GameManagement::moveBullet(Cannon* cannon, int xMove, int yMove)
 {
-	for (int i = 0; i < this->board->getBoardASCII().size(); i++) {
-		string line = this->board->getBoardASCII().at(i);
-		for (int j = 0; j < line.size(); j++) {
-			if (line.at(j) == 'H' && checkIfCollision(i - 1, j) == -1) {
-				this->board->modifyBoardASCII(i - 1, j, 'H');
+	vector<string> boardASCII = this->board->getBoardASCII();
+	// Move Vertically
+	if (yMove != 0 && xMove == 0) {
+		for (int y = cannon->getYPos(); y < boardASCII.size(); y++) {
+			if (boardASCII.at(y).at(cannon->getXPos()) == 'o' && checkIfCollision(cannon->getXPos(), y + yMove) == -1) {
+				this->clearCell(cannon->getXPos(), y);
+				this->board->modifyBoardASCII(cannon->getXPos(), y, ' ');
+				this->board->modifyBoardASCII(cannon->getXPos(), y + yMove, 'o');
+
+				this->drawBullet(cannon->getXPos(), y + yMove);
+				break;
 			}
-			this->board->modifyBoardASCII(i, j, ' ');
+			if (boardASCII.at(y).at(cannon->getXPos()) == 'o' && checkIfCollision(cannon->getXPos(), y + yMove) == 0) {
+				this->clearCell(cannon->getXPos(), y);
+				this->board->modifyBoardASCII(cannon->getXPos(), y, ' ');
+				this->initBullet(cannon, xMove, yMove);
+
+				this->drawBullet(cannon->getXPos(), cannon->getYPos() + yMove);
+			}
+		}
+	}
+	// Move Horizontally
+	else if (xMove != 0 && yMove == 0) {
+		for (int x = cannon->getXPos(); x < boardASCII.at(0).size(); x++) {
+			if (boardASCII.at(cannon->getYPos()).at(x) == 'o' && checkIfCollision(x + xMove, cannon->getYPos()) == -1) {
+				this->clearCell(x, cannon->getYPos());
+				this->board->modifyBoardASCII(x, cannon->getYPos(), ' ');
+				this->board->modifyBoardASCII(x + xMove, cannon->getYPos(), 'o');
+
+				this->drawBullet(x + xMove, cannon->getYPos());
+				break;
+			}
+			if (boardASCII.at(cannon->getYPos()).at(x) == 'o' && checkIfCollision(x + xMove, cannon->getYPos()) == 0) {
+				this->clearCell(x, cannon->getYPos());
+				this->board->modifyBoardASCII(x, cannon->getYPos(), ' ');
+				this->initBullet(cannon, xMove, yMove);
+
+				this->drawBullet(cannon->getXPos() + xMove, cannon->getYPos());
+			}
 		}
 	}
 }
 
-void GameManagement::drawBullets() {
-	for (int i = 0; i < this->board->getBoardASCII().size(); i++) {
-		string line = this->board->getBoardASCII().at(i);
-		for (int j = 0; j < line.size(); j++) {
-			if (line.at(j) == 'H') {
-				this->gotoxy(i, j);
-				cout << this->cannons.at(0)->getReprBullet();
-			}
-		}
-	}
+void GameManagement::drawBullet(int xPos, int yPos) {
+	this->changeColor(RED);
+	this->gotoxy(xPos, yPos);
+	cout << this->cannons.at(0)->getReprBullet();
+	this->changeColor(WHITE);
+}
+
+
+void GameManagement::initBullet(Cannon* cannon, int xMove, int yMove) {
+	this->board->modifyBoardASCII(cannon->getXPos() + xMove, cannon->getYPos() + yMove, 'o');
+
 }
 
 void GameManagement::shootCannonSlow() {
 	while (true) {
 		for (auto cannon : this->cannons) {
-			this->moveBullet();
-			this->drawBullets();
+			if(cannon->getShootDelay() >= 500 && cannon->getShootDir() == 'D') this->moveBullet(cannon, 0, 1);
+			else if(cannon->getShootDelay() >= 500 && cannon->getShootDir() == 'U') this->moveBullet(cannon, 0, -1);
+			else if(cannon->getShootDelay() >= 500 && cannon->getShootDir() == 'R') this->moveBullet(cannon, 1, 0);
+			else if(cannon->getShootDelay() >= 500 && cannon->getShootDir() == 'L') this->moveBullet(cannon, -1, 0);
 		}
-		Sleep(1000);
+		Sleep(300);
 	}
-	
 }
+
 
 void GameManagement::shootCannonFast() {
 	Sleep(200);
@@ -144,6 +180,11 @@ void GameManagement::shootCannonFast() {
 Board* GameManagement::getBoard() const
 {
 	return this->board;
+}
+
+vector<Cannon*> GameManagement::getCannons() const
+{
+	return this->cannons;
 }
 
 Player* GameManagement::getPlayer() const

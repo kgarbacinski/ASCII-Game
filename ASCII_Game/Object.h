@@ -1,7 +1,7 @@
 #include <windows.h>
-
+#include "WindowHandler.h"
 #pragma once
-class Object
+class Object : public WindowHandler
 {
 protected:
 	int xPos;
@@ -12,12 +12,6 @@ public:
 	Object(int _xPos, int _yPos, char _reprVer, char _reprHor) : xPos{ _xPos }, yPos{ _yPos }, reprHor{ _reprHor }, reprVer{_reprVer} {
 	}
 
-	virtual void gotoxy(int x, int y) {
-		COORD coord;
-		coord.X = x;
-		coord.Y = y;
-		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-	}
 	virtual void drawObject() = 0;
 
 	int getXPos() { return this->xPos; }
