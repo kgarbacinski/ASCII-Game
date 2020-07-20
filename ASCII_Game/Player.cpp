@@ -4,6 +4,16 @@ Player::Player()
 {
 }
 
+const int& Player::getStartxPos()
+{
+	return this->startxPos;
+}
+
+const int& Player::getStartyPos()
+{
+	return this->startyPos;
+}
+
 const int& Player::getxPos() const
 {
 	return this->xPos;

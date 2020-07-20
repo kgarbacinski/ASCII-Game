@@ -12,9 +12,23 @@ private:
 	//Create objects
 	vector<Cannon*> cannons{ 
 		new Cannon(5, 25, 1000, true, 'D'), // first from left, section down
-		new Cannon(5,15,1000,true,'D'),
-		new Cannon(11,28,1000,false,'R')
-	
+		
+		new Cannon(5,15,1000,true,'D'), 
+		
+		new Cannon(11, 28, 1000, false, 'R'),
+
+		// One row
+		new Cannon(26, 29, 400, true, 'D'),
+		new Cannon(27, 29, 1000, true, 'D'),
+		new Cannon(28, 29, 400, true, 'D'),
+		new Cannon(29, 29, 400, true, 'D'),
+		
+		new Cannon(31, 29, 1000, true, 'D'),
+		new Cannon(32, 29, 1000, true, 'D'),
+		new Cannon(33, 29, 400, true, 'D'),
+		new Cannon(34, 29, 1000, true, 'D'),
+		new Cannon(35, 29, 400, true, 'D'),
+		new Cannon(36, 29, 1000, true, 'D')
 	};
 
 	// Create board
@@ -33,12 +47,15 @@ public:
 	}
 
 	// Basic methods
-	void drawObjects();
-	void putObjects();
-	void drawPlayer();
+	void drawCannons();
+	void putCannons();
 	void clearCell(int xPos, int yPos);
 	void drawBoard();
+
+	// Player
 	void movePlayer();
+	void putPlayer();
+	void killPlayer();
 
 	int checkIfCollision(int newXPos, int newYPos);
 
@@ -53,4 +70,4 @@ public:
 	vector<Cannon*> getCannons() const;
 	Player* getPlayer() const;
 };
-
+ 

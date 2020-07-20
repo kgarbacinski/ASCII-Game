@@ -2,11 +2,16 @@
 class Player
 {
 private:
-	int yPos{36}, xPos{2};
+	const int startxPos = 2;
+	const int startyPos = 36;
+
+	int xPos{startxPos}, yPos{startyPos};
 	int health{ 100 };
 public:
 	Player();
 
+	const int& getStartxPos();
+	const int& getStartyPos();
 	const int& getxPos() const;
 	const int& getyPos() const;
 	const int& getHealth() const;

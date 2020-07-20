@@ -8,6 +8,14 @@ void play(GameManagement* gameManager) {
 	
 
 	while (true) {
+		/*vector<string> board = gameManager->getBoard()->getBoardASCII();
+
+		for (string line : board) {
+			for (char litera : line) {
+				cout << litera;
+			}
+			cout << '\n';
+		}*/
 	}
 }
 
@@ -24,18 +32,20 @@ int main() {
 	}
 
 	gameManager->drawBoard();
-	gameManager->drawPlayer();
-	gameManager->putObjects(); // put on ascii board
-	gameManager->drawObjects(); // draw cannons, ats etc.
+	gameManager->putPlayer();
+	gameManager->putCannons(); // put on ascii board
+	gameManager->drawCannons(); // draw cannons, ats etc.
 	
 	
 	//thread shootCannonSF{gameManager->shootCannonSlow};
-	auto f1 = std::thread(&GameManagement::shootCannonSlow, gameManager);
-	auto f2 = std::thread(&GameManagement::movePlayer, gameManager);
-	auto f3 = std::thread(play, gameManager);
+	auto shootCannonSlow = std::thread(&GameManagement::shootCannonSlow, gameManager);
+	auto shootCannonFast = std::thread(&GameManagement::shootCannonFast, gameManager);
+	auto movePlayer = std::thread(&GameManagement::movePlayer, gameManager);
+	auto playing = std::thread(play, gameManager);
 
-	f1.join();
-	f2.join();
-	f3.join();
+	shootCannonSlow.join();
+	shootCannonFast.join();
+	movePlayer.join();
+	playing.join();
 	
 }
