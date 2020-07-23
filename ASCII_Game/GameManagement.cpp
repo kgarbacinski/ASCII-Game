@@ -1,10 +1,5 @@
 #include "GameManagement.h"
 
-constexpr auto DARK_RED = 4;
-constexpr auto RED = 12;
-constexpr auto LIGHT_BLUE = 11;
-constexpr auto WHITE = 15;
-
 GameManagement* GameManagement::instance = nullptr;
 
 GameManagement::GameManagement() {}
@@ -13,9 +8,8 @@ GameManagement::GameManagement() {}
 void GameManagement::drawCannons()
 {
 	for (auto cannon : this->cannons) {
-		this->changeColor(DARK_RED);
-		cannon->drawObject();
-		this->changeColor(WHITE);
+		if (cannon->getIsVer()) this->moveCursor(cannon->getXPos(), cannon->getYPos(), Colours::DARK_RED, cannon->getReprVer());
+		else this->moveCursor(cannon->getXPos(), cannon->getYPos(), Colours::DARK_RED, cannon->getReprHor());
 	}
 }
 
@@ -30,10 +24,7 @@ void GameManagement::putPlayer()
 	this->board->modifyBoardASCII(this->player->getxPos(), this->player->getyPos(), 'p');
 
 	// Drawing a player
-	this->changeColor(LIGHT_BLUE);
-	this->gotoxy(this->getPlayer()->getxPos(), this->getPlayer()->getyPos()); // place console cursor on certain pos
-	cout << "I";
-	this->changeColor(WHITE);
+	this->moveCursor(this->getPlayer()->getxPos(), this->getPlayer()->getyPos(), Colours::LIGHT_BLUE, 'I'); // place console cursor on certain pos
 }
 
 void GameManagement::killPlayer()
@@ -47,12 +38,12 @@ void GameManagement::killPlayer()
 
 void GameManagement::clearCell(int xPos, int yPos)
 {
-	gotoxy(xPos, yPos);
+	moveCursor(xPos, yPos);
 	cout << ' ';
 }
 
 void GameManagement::drawBoard() {
-	gotoxy(0, 0);
+	moveCursor(0, 0);
 
 	for (auto line : this->getBoard()->getBoardASCII()) {
 		cout << line << endl;
@@ -154,7 +145,8 @@ void GameManagement::moveBullet(Cannon* cannon, int xMove, int yMove)
 	if (yMove != 0 && xMove == 0) {
 		for (int y = cannon->getYPos() + yMove; y < boardASCII.size(); y++) {
 			// For Empty Field
-			if (boardASCII.at(y).at(cannon->getXPos()) == 'o' && checkIfCollision(cannon->getXPos(), y + yMove) == -1) {
+			if (boardASCII.at(y).at(cannon->getXPos()) == 'o' && 
+				checkIfCollision(cannon->getXPos(), y + yMove) == -1) {
 				this->board->modifyBoardASCII(cannon->getXPos(), y, ' ');
 				this->board->modifyBoardASCII(cannon->getXPos(), y + yMove, 'o');
 
@@ -181,13 +173,15 @@ void GameManagement::moveBullet(Cannon* cannon, int xMove, int yMove)
 
 				this->clearCell(cannon->getXPos(), y);
 				this->drawBullet(cannon->getXPos(), cannon->getYPos() + yMove);
+				break;
 			}
 		}
 	}
 	// Move Horizontally
 	else if (xMove != 0 && yMove == 0) {
 		for (int x = cannon->getXPos() + xMove; x < boardASCII.at(0).size(); x++) {
-			if (boardASCII.at(cannon->getYPos()).at(x) == 'o' && checkIfCollision(x + xMove, cannon->getYPos()) == -1) {
+			if (boardASCII.at(cannon->getYPos()).at(x) == 'o' && 
+				checkIfCollision(x + xMove, cannon->getYPos()) == -1) {
 				this->board->modifyBoardASCII(x, cannon->getYPos(), ' ');
 				this->board->modifyBoardASCII(x + xMove, cannon->getYPos(), 'o');
 
@@ -211,16 +205,14 @@ void GameManagement::moveBullet(Cannon* cannon, int xMove, int yMove)
 
 				this->clearCell(x, cannon->getYPos());
 				this->drawBullet(cannon->getXPos() + xMove, cannon->getYPos());
+				break;
 			}
 		}
 	}
 }
 
 void GameManagement::drawBullet(int xPos, int yPos) {
-	this->changeColor(RED);
-	this->gotoxy(xPos, yPos);
-	cout << this->cannons.at(0)->getReprBullet();
-	this->changeColor(WHITE);
+	this->moveCursor(xPos, yPos, Colours::RED, this->cannons.at(0)->getReprBullet());
 }
 
 
@@ -238,10 +230,9 @@ void GameManagement::shootCannonSlow() {
 			else if(cannon->getShootDelay() >= 500 && cannon->getShootDir() == 'R') this->moveBullet(cannon, 1, 0);
 			else if(cannon->getShootDelay() >= 500 && cannon->getShootDir() == 'L') this->moveBullet(cannon, -1, 0);
 		}
-		Sleep(300);
+		Sleep(500);
 	}
 }
-
 
 void GameManagement::shootCannonFast() {
 	while (true) {

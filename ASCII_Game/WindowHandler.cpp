@@ -1,20 +1,21 @@
 #include "WindowHandler.h"
 
-constexpr auto DARK_RED = 4;
-constexpr auto RED = 12;
-constexpr auto LIGHT_BLUE = 11;
-constexpr auto WHITE = 15;
-
-void WindowHandler::gotoxy(int x, int y)
+void WindowHandler::moveCursor(int x, int y, Colours colour, char symbol)
 {
+	mtx.lock();
 	COORD coord;
 	coord.X = x;
 	coord.Y = y;
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+
+	if (colour != Colours::NONE)
+		this->changeColor(colour);
+	if(symbol != ' ')
+		std::cout << symbol;
+	mtx.unlock();
 }
 
-void WindowHandler::changeColor(int nameNumber)
-{
+void WindowHandler::changeColor(int nameNumber){
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	switch (nameNumber) {
 		case RED:
