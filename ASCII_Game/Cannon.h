@@ -15,7 +15,7 @@ private:
 public:
 	Cannon(int _xPos, int _yPos, int _shootDelay, bool _isVer, char _shootDir);
 	
-	void drawBullet(int xPos, int yPos) override;
+	void drawBullet(int xPos, int yPos);
 
 	int getShootDelay();
 	char getReprBullet();

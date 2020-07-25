@@ -1,17 +1,12 @@
 #include "WindowHandler.h"
 
-void WindowHandler::moveCursor(int x, int y, Colours colour, char symbol)
+void WindowHandler::gotoxy(int x, int y)
 {
 	mtx.lock();
 	COORD coord;
 	coord.X = x;
 	coord.Y = y;
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-
-	if (colour != Colours::NONE)
-		this->changeColor(colour);
-	if(symbol != ' ')
-		std::cout << symbol;
 	mtx.unlock();
 }
 
@@ -29,6 +24,9 @@ void WindowHandler::changeColor(int nameNumber){
 			break;
 		case WHITE:
 			SetConsoleTextAttribute(hConsole, WHITE);
+			break;
+		case LIGHT_GREEN:
+			SetConsoleTextAttribute(hConsole, LIGHT_GREEN);
 			break;
 	}
 }

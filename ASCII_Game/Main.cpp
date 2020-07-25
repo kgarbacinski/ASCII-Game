@@ -34,18 +34,22 @@ int main() {
 	gameManager->drawBoard();
 	gameManager->putPlayer();
 	gameManager->putCannons(); // put on ascii board
-	gameManager->drawCannons(); // draw cannons, ats etc.
+	gameManager->drawCannons(); 
+	gameManager->putDollars();
+	gameManager->drawDollars();
 	
 	
 	//thread shootCannonSF{gameManager->shootCannonSlow};
 	auto shootCannonSlow = std::thread(&GameManagement::shootCannonSlow, gameManager);
 	auto shootCannonFast = std::thread(&GameManagement::shootCannonFast, gameManager);
 	auto movePlayer = std::thread(&GameManagement::movePlayer, gameManager);
+	auto moveDollar = std::thread(&GameManagement::moveDollars, gameManager);
 	auto playing = std::thread(play, gameManager);
 
 	shootCannonSlow.join();
 	shootCannonFast.join();
 	movePlayer.join();
+	moveDollar.join();
 	playing.join();
 	
 }

@@ -9,7 +9,8 @@ enum Colours {
 	DARK_RED = 4,
 	RED = 12,
 	LIGHT_BLUE = 11,
-	WHITE = 15
+	WHITE = 15,
+	LIGHT_GREEN = 10
 };
 
 #pragma once
@@ -18,7 +19,7 @@ class WindowHandler
 private:
 	std::mutex mtx;
 protected:
-	void moveCursor(int x, int y, Colours colour=Colours::NONE, char symbol=' ');
+	void gotoxy(int x, int y);
 	void changeColor(int nameNumber);
 };
 

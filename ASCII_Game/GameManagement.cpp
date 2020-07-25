@@ -4,27 +4,40 @@ GameManagement* GameManagement::instance = nullptr;
 
 GameManagement::GameManagement() {}
 
-
 void GameManagement::drawCannons()
 {
 	for (auto cannon : this->cannons) {
-		if (cannon->getIsVer()) this->moveCursor(cannon->getXPos(), cannon->getYPos(), Colours::DARK_RED, cannon->getReprVer());
-		else this->moveCursor(cannon->getXPos(), cannon->getYPos(), Colours::DARK_RED, cannon->getReprHor());
+		this->changeColor(DARK_RED);
+		this->gotoxy(cannon->getXPos(), cannon->getYPos());
+		if (cannon->getIsVer()) cout << cannon->getReprVer();
+		else cout << cannon->getReprHor();
+		this->changeColor(WHITE);
 	}
 }
 
 void GameManagement::putCannons() {
 	for (auto cannon : this->cannons) {
-		board->modifyBoardASCII(cannon->getXPos(), cannon->getYPos(), 'c');
+		this->board->modifyBoardASCII(cannon->getXPos(), cannon->getYPos(), 'c');
 	}
 }
+
+void GameManagement::putDollars()
+{
+	for (auto dollar : this->dollars) {
+		this->board->modifyBoardASCII(dollar->getXPos(), dollar->getYPos(), '$');
+	}
+}
+
 
 void GameManagement::putPlayer()
 {
 	this->board->modifyBoardASCII(this->player->getxPos(), this->player->getyPos(), 'p');
 
 	// Drawing a player
-	this->moveCursor(this->getPlayer()->getxPos(), this->getPlayer()->getyPos(), Colours::LIGHT_BLUE, 'I'); // place console cursor on certain pos
+	this->changeColor(LIGHT_BLUE);
+	this->gotoxy(this->getPlayer()->getxPos(), this->getPlayer()->getyPos()); // place console cursor on certain pos
+	cout << 'I';
+	this->changeColor(WHITE);
 }
 
 void GameManagement::killPlayer()
@@ -38,12 +51,12 @@ void GameManagement::killPlayer()
 
 void GameManagement::clearCell(int xPos, int yPos)
 {
-	moveCursor(xPos, yPos);
+	gotoxy(xPos, yPos);
 	cout << ' ';
 }
 
 void GameManagement::drawBoard() {
-	moveCursor(0, 0);
+	gotoxy(0, 0);
 
 	for (auto line : this->getBoard()->getBoardASCII()) {
 		cout << line << endl;
@@ -212,7 +225,10 @@ void GameManagement::moveBullet(Cannon* cannon, int xMove, int yMove)
 }
 
 void GameManagement::drawBullet(int xPos, int yPos) {
-	this->moveCursor(xPos, yPos, Colours::RED, this->cannons.at(0)->getReprBullet());
+	this->changeColor(RED);
+	this->gotoxy(xPos, yPos);
+	cout << this->cannons.at(0)->getReprBullet();
+	this->changeColor(WHITE);
 }
 
 
@@ -243,6 +259,39 @@ void GameManagement::shootCannonFast() {
 			else if (cannon->getShootDelay() < 500 && cannon->getShootDir() == 'L') this->moveBullet(cannon, -1, 0);
 		}
 		Sleep(200);
+	}
+}
+
+
+void GameManagement::drawDollars()
+{
+	for (auto dollar : this->dollars) {
+		this->changeColor(LIGHT_GREEN);
+		this->gotoxy(dollar->getXPos(), dollar->getYPos());
+		cout << dollar->getReprVer();
+		this->changeColor(WHITE);
+	}
+}
+
+void GameManagement::moveDollars()
+{
+	while (true) {
+		for (auto dollar : this->dollars) {
+			int xPos = dollar->getXPos(), yPos = dollar->getYPos();
+		
+			if (this->checkIfCollision(xPos + dollar->getXDir(), yPos) == 0) { // wall is next
+				dollar->setXDir(dollar->getXDir() * (-1)); // change dir
+			}
+
+			dollar->setXPos(xPos + dollar->getXDir());
+			this->clearCell(xPos, yPos);
+			this->board->modifyBoardASCII(xPos, yPos, ' ');
+			this->board->modifyBoardASCII(xPos + dollar->getXDir(), yPos, '$');
+		}
+
+		this->drawDollars();
+
+		Sleep(500);
 	}
 }
 

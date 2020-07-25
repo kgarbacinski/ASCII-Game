@@ -140,6 +140,7 @@
   <ItemGroup>
     <ClInclude Include="Board.h" />
     <ClInclude Include="Cannon.h" />
+    <ClInclude Include="Dollar.h" />
     <ClInclude Include="GameManagement.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Player.h" />
@@ -148,8 +149,10 @@
   <ItemGroup>
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="Cannon.cpp" />
+    <ClCompile Include="Dollar.cpp" />
     <ClCompile Include="GameManagement.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Object.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="WindowHandler.cpp" />
   </ItemGroup>

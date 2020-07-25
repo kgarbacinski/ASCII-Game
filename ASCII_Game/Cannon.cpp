@@ -6,7 +6,7 @@ Cannon::Cannon(int _xPos, int _yPos, int _shootDelay, bool _isVer, char _shootDi
 
 void Cannon::drawBullet(int xPos, int yPos)
 {
-	this->moveCursor(xPos, yPos);
+	this->gotoxy(xPos, yPos);
 
 }
 

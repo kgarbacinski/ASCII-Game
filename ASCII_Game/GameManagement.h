@@ -3,6 +3,7 @@
 #include "Board.h"
 #include "Player.h"
 #include "Cannon.h"
+#include "Dollar.h"
 
 
 #pragma once
@@ -38,6 +39,10 @@ private:
 		new Cannon(46,36,1000,true,'U'),
 	};
 
+	vector<Dollar*> dollars{
+		new Dollar(10, 31, -1, '$')
+	};
+
 	// Create board
 	Board* board{new Board()};
 	//Create player
@@ -56,6 +61,8 @@ public:
 	// Basic methods
 	void drawCannons();
 	void putCannons();
+	void putDollars();
+	void drawDollars();
 	void clearCell(int xPos, int yPos);
 	void drawBoard();
 
@@ -72,6 +79,9 @@ public:
 	void shootCannonFast();
 	void moveBullet(Cannon* cannon, int xMove, int yMove);
 	void drawBullet(int xPos, int yPos);
+
+	//Dollars
+	void moveDollars();
 
 	Board* getBoard() const;
 	vector<Cannon*> getCannons() const;
