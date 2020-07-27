@@ -1,11 +1,15 @@
+#include <algorithm>
+#include <chrono>
 #include <windows.h>
 #include "WindowHandler.h"
 #include "Board.h"
 #include "Player.h"
 #include "Cannon.h"
 #include "Dollar.h"
+#include "At.h"
 
-
+using std::find_if;
+using namespace std::chrono;
 #pragma once
 class GameManagement : public WindowHandler
 {
@@ -40,7 +44,13 @@ private:
 	};
 
 	vector<Dollar*> dollars{
-		new Dollar(10, 31, -1, '$')
+		new Dollar(10, 31, -1, '$'),
+		new Dollar(10, 33 ,1, '$')
+	};
+
+	vector<At*> ats{
+		new At(56, 26, '@'),
+		new At(57, 34, '@')
 	};
 
 	// Create board
@@ -63,25 +73,34 @@ public:
 	void putCannons();
 	void putDollars();
 	void drawDollars();
-	void clearCell(int xPos, int yPos);
+	void clearCell(const int& xPos, const int& yPos);
 	void drawBoard();
 
 	// Player
 	void movePlayer();
 	void putPlayer();
+	void drawPlayer();
 	void killPlayer();
 
-	int checkIfCollision(int newXPos, int newYPos);
+	int checkIfCollision(const int& newXPos, const int& newYPos);
 
 	//Cannons
-	void initBullet(Cannon* cannon, int xMove, int yMove);
+	void initBullet(Cannon* cannon, const int& xMove, const int& yMove);
 	void shootCannonSlow();
 	void shootCannonFast();
-	void moveBullet(Cannon* cannon, int xMove, int yMove);
-	void drawBullet(int xPos, int yPos);
+	void moveBullet(Cannon* cannon, const int& xMove,const int& yMove);
+	void drawBullet(const int& xPos, const int& yPos);
 
 	//Dollars
 	void moveDollars();
+
+	//Ats
+	void putAt(At* at);
+	void drawAt(At* at);
+	vector<At*>::iterator findAt(const int& xPos, const int& yPos);
+	bool moveAt(At* at, const int& xDir, const int& yDir);
+
+	const vector<At*>& getAts() const;
 
 	Board* getBoard() const;
 	vector<Cannon*> getCannons() const;

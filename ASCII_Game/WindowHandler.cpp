@@ -1,6 +1,6 @@
 #include "WindowHandler.h"
 
-void WindowHandler::gotoxy(int x, int y)
+void WindowHandler::gotoxy(const int& x, const int& y)
 {
 	mtx.lock();
 	COORD coord;
@@ -10,7 +10,7 @@ void WindowHandler::gotoxy(int x, int y)
 	mtx.unlock();
 }
 
-void WindowHandler::changeColor(int nameNumber){
+void WindowHandler::changeColor(const int& nameNumber){
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	switch (nameNumber) {
 		case RED:
@@ -27,6 +27,9 @@ void WindowHandler::changeColor(int nameNumber){
 			break;
 		case LIGHT_GREEN:
 			SetConsoleTextAttribute(hConsole, LIGHT_GREEN);
+			break;
+		case GRAY:
+			SetConsoleTextAttribute(hConsole, GRAY);
 			break;
 	}
 }

@@ -138,6 +138,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="At.h" />
     <ClInclude Include="Board.h" />
     <ClInclude Include="Cannon.h" />
     <ClInclude Include="Dollar.h" />
@@ -147,6 +148,7 @@
     <ClInclude Include="WindowHandler.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="At.cpp" />
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="Cannon.cpp" />
     <ClCompile Include="Dollar.cpp" />

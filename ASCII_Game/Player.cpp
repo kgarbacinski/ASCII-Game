@@ -4,12 +4,12 @@ Player::Player()
 {
 }
 
-const int& Player::getStartxPos()
+const int& Player::getStartxPos() const
 {
 	return this->startxPos;
 }
 
-const int& Player::getStartyPos()
+const int& Player::getStartyPos() const
 {
 	return this->startyPos;
 }

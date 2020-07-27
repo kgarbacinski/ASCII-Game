@@ -6,9 +6,9 @@ class Dollar : public Object
 private:
 	int xDir; // -1, 1
 public:
-	Dollar(int _xPos, int _yPos, int _xDir, char _repr);
+	Dollar(const int& _xPos, const int& _yPos, const int& _xDir, const char& _repr);
 
-	int getXDir();
-	void setXDir(int _xDir);
+	const int& getXDir() const ;
+	void setXDir(const int& _xDir);
 };
 

@@ -10,7 +10,8 @@ enum Colours {
 	RED = 12,
 	LIGHT_BLUE = 11,
 	WHITE = 15,
-	LIGHT_GREEN = 10
+	LIGHT_GREEN = 10,
+	GRAY = 7
 };
 
 #pragma once
@@ -19,7 +20,7 @@ class WindowHandler
 private:
 	std::mutex mtx;
 protected:
-	void gotoxy(int x, int y);
-	void changeColor(int nameNumber);
+	void gotoxy(const int& x, const int& y);
+	void changeColor(const int& nameNumber);
 };
 

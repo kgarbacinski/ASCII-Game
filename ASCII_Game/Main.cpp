@@ -37,6 +37,11 @@ int main() {
 	gameManager->drawCannons(); 
 	gameManager->putDollars();
 	gameManager->drawDollars();
+
+	for (auto at : gameManager->getAts()) {
+		gameManager->putAt(at);
+		gameManager->drawAt(at);
+	}
 	
 	
 	//thread shootCannonSF{gameManager->shootCannonSlow};

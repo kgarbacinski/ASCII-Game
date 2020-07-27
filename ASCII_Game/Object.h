@@ -14,12 +14,12 @@ public:
 	}
 
 
-	char getReprVer() { return this->reprVer; }
-	char getReprHor() { return this->reprHor; }
-	bool getIsVer() { return this->isVer; }
-	int getXPos() { return this->xPos; }
-	int getYPos() { return this->yPos; }
-	void setXPos(int _xPos);
-	void setYPos(int _yPos);
+	const char& getReprVer() const { return this->reprVer; }
+	const char& getReprHor() const { return this->reprHor; }
+	const bool& getIsVer() const { return this->isVer; }
+	const int& getXPos() const { return this->xPos; }
+	const int& getYPos() const { return this->yPos; }
+	void setXPos(const int& _xPos);
+	void setYPos(const int& _yPos);
 };
 

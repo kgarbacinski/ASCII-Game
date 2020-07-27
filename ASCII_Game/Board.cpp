@@ -28,7 +28,7 @@ vector<string> Board::getBoardASCII()
 	return this->boardASCII;
 }
 
-void Board::modifyBoardASCII(int x, int y, char newElement)
+void Board::modifyBoardASCII(const int& x, const int& y, const char& newElement)
 {
 	this->boardASCII.at(y).at(x) = newElement;
 }
