@@ -14,6 +14,11 @@ const int& Player::getStartyPos() const
 	return this->startyPos;
 }
 
+const int& Player::getTimeDelay() const
+{
+	return this->timeDelay;
+}
+
 const int& Player::getxPos() const
 {
 	return this->xPos;
