@@ -17,8 +17,6 @@ enum Colours {
 #pragma once
 class WindowHandler
 {
-private:
-	std::mutex mtx;
 protected:
 	void gotoxy(const int& x, const int& y);
 	void changeColor(const int& nameNumber);

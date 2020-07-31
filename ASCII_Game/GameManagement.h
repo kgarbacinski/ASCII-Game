@@ -10,37 +10,43 @@
 
 using std::find_if;
 using namespace std::chrono;
+
+enum timeDelay {
+	CANNON_FAST = 500000,
+	CANNON_SLOW = 1000000
+};
+
 #pragma once
 class GameManagement : public WindowHandler
 {
 private:
 	//Create objects
 	vector<Cannon*> cannons{
-		new Cannon(5, 25, 1000, true, 'D'), // first from left, section down
+		new Cannon(5, 25, timeDelay::CANNON_SLOW, true, 'D'), // first from left, section down
 
-		new Cannon(5,15,1000,true,'D'),
+		new Cannon(5,15, timeDelay::CANNON_SLOW,true,'D'),
 
-		new Cannon(11, 28, 1000, false, 'R'),
+		new Cannon(11, 28, timeDelay::CANNON_SLOW, false, 'R'),
 
 		// One row
-		new Cannon(26, 29, 400, true, 'D'),
-		new Cannon(27, 29, 1000, true, 'D'),
-		new Cannon(28, 29, 400, true, 'D'),
-		new Cannon(29, 29, 400, true, 'D'),
+		new Cannon(26, 29, timeDelay::CANNON_FAST, true, 'D'),
+		new Cannon(27, 29, timeDelay::CANNON_FAST, true, 'D'),
+		new Cannon(28, 29, timeDelay::CANNON_FAST, true, 'D'),
+		new Cannon(29, 29, timeDelay::CANNON_FAST, true, 'D'),
 
-		new Cannon(31, 29, 1000, true, 'D'),
-		new Cannon(32, 29, 1000, true, 'D'),
-		new Cannon(33, 29, 400, true, 'D'),
-		new Cannon(34, 29, 1000, true, 'D'),
-		new Cannon(35, 29, 400, true, 'D'),
-		new Cannon(36, 29, 1000, true, 'D'),
+		new Cannon(31, 29, timeDelay::CANNON_SLOW, true, 'D'),
+		new Cannon(32, 29, timeDelay::CANNON_SLOW, true, 'D'),
+		new Cannon(33, 29, timeDelay::CANNON_FAST, true, 'D'),
+		new Cannon(34, 29, timeDelay::CANNON_SLOW, true, 'D'),
+		new Cannon(35, 29, timeDelay::CANNON_FAST, true, 'D'),
+		new Cannon(36, 29, timeDelay::CANNON_SLOW, true, 'D'),
 
-		new Cannon(41,36,1000,true,'U'),
-		new Cannon(42,36,1000,true,'U'),
-		new Cannon(43,36,1000,true,'U'),
-		new Cannon(44,36,1000,true,'U'),
-		new Cannon(45,36,1000,true,'U'),
-		new Cannon(46,36,1000,true,'U'),
+		new Cannon(41,36, timeDelay::CANNON_SLOW,true,'U'),
+		new Cannon(42,36, timeDelay::CANNON_SLOW,true,'U'),
+		new Cannon(43,36, timeDelay::CANNON_SLOW,true,'U'),
+		new Cannon(44,36, timeDelay::CANNON_SLOW,true,'U'),
+		new Cannon(45,36, timeDelay::CANNON_SLOW,true,'U'),
+		new Cannon(46,36, timeDelay::CANNON_SLOW,true,'U'),
 	};
 
 	vector<Dollar*> dollars{
@@ -86,8 +92,7 @@ public:
 
 	//Cannons
 	void initBullet(Cannon* cannon, const int& xMove, const int& yMove);
-	void shootCannonSlow();
-	void shootCannonFast();
+	void shootCannon(long long mcr);
 	void moveBullet(Cannon* cannon, const int& xMove,const int& yMove);
 	void drawBullet(const int& xPos, const int& yPos);
 

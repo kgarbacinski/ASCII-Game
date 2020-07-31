@@ -4,6 +4,7 @@ class Player
 private:
 	const int startxPos{ 56 }; // 2
 	const int startyPos{ 32 }; // 36
+	const int timeDelay{ 100000 };
 
 	int xPos{startxPos}, yPos{startyPos};
 	int health{ 100 };
@@ -12,6 +13,7 @@ public:
 
 	const int& getStartxPos() const;
 	const int& getStartyPos() const;
+	const int& getTimeDelay() const;
 	const int& getxPos() const;
 	const int& getyPos() const;
 	const int& getHealth() const;

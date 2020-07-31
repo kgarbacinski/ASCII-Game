@@ -2,12 +2,10 @@
 
 void WindowHandler::gotoxy(const int& x, const int& y)
 {
-	mtx.lock();
 	COORD coord;
 	coord.X = x;
 	coord.Y = y;
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-	mtx.unlock();
 }
 
 void WindowHandler::changeColor(const int& nameNumber){
