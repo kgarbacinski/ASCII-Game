@@ -1,14 +1,10 @@
-#include "Object.h"
+#include "MovableObject.h"
 
 #pragma once
-class Dollar : public Object
+class Dollar : public MovableObject
 {
-private:
-	int xDir; // -1, 1
 public:
-	Dollar(const int& _xPos, const int& _yPos, const int& _xDir, const char& _repr);
+	Dollar(const int& _xPos, const int& _yPos, const char& _moveDir);
 
-	const int& getXDir() const ;
-	void setXDir(const int& _xDir);
 };
 
