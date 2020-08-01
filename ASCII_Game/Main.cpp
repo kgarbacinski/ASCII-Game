@@ -34,10 +34,10 @@ int main() {
 
 	gameManager->drawBoard();
 	gameManager->putPlayer();
-	gameManager->putCannons(); // put on ascii board
-	gameManager->drawCannons(); 
-	gameManager->putDollars();
-	gameManager->drawDollars();
+	gameManager->putShotObjects(); // put on ascii board
+	gameManager->drawShotObjects(); 
+	gameManager->putMovObjects();
+	gameManager->drawMovObjects();
 
 	for (auto at : gameManager->getAts()) {
 		gameManager->putAt(at);
@@ -50,7 +50,7 @@ int main() {
 		if(!(mcr % gameManager->getPlayer()->getTimeDelay())) gameManager->movePlayer();
 		if(!(mcr % timeDelay::CANNON_SLOW)) gameManager->shootCannon(timeDelay::CANNON_SLOW);
 		if(!(mcr % timeDelay::CANNON_FAST)) gameManager->shootCannon(timeDelay::CANNON_FAST);
-		if(!(mcr % 500000)) gameManager->moveDollars();
+		if(!(mcr % timeDelay::DOLLAR_NORMAL)) gameManager->moveDollars();
 	}
 	
 	////thread shootCannonSF{gameManager->shootCannonSlow};

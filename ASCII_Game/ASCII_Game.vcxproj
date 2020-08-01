@@ -143,8 +143,10 @@
     <ClInclude Include="Cannon.h" />
     <ClInclude Include="Dollar.h" />
     <ClInclude Include="GameManagement.h" />
+    <ClInclude Include="MovableObject.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="ShootableObject.h" />
     <ClInclude Include="WindowHandler.h" />
   </ItemGroup>
   <ItemGroup>
@@ -154,7 +156,6 @@
     <ClCompile Include="Dollar.cpp" />
     <ClCompile Include="GameManagement.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Object.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="WindowHandler.cpp" />
   </ItemGroup>

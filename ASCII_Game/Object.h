@@ -1,27 +1,32 @@
 #include <windows.h>
+#include <iostream>
+
 #include "WindowHandler.h"
+
+using std::cout;
 #pragma once
 class Object : public WindowHandler
 {
 protected:
-	int timeDelay;
-
 	int xPos;
 	int yPos;
-	bool isVer;
-	char reprVer;
-	char reprHor;
+	char repr;
+
 public:
-	Object(int _xPos, int _yPos, char _reprVer, char _reprHor, int _timeDelay = 0, bool _isVer = true) : xPos{ _xPos }, yPos{ _yPos }, reprHor{ _reprHor }, reprVer{ _reprVer }, timeDelay{_timeDelay}, isVer{ _isVer } {
+	Object(int _xPos, int _yPos, char _reprVer, char _reprHor, bool _isVer) : xPos{ _xPos }, yPos{ _yPos } {
+		if (_isVer) this->repr = _reprVer;
+		else this->repr = _reprHor;		
 	}
 
-	const int& getTimeDelay() const { return this->timeDelay; }
-	const char& getReprVer() const { return this->reprVer; }
-	const char& getReprHor() const { return this->reprHor; }
-	const bool& getIsVer() const { return this->isVer; }
+	void drawObject() {
+		cout << this->repr;
+	}
+
+	const char& getRepr() const { return this->repr; }
 	const int& getXPos() const { return this->xPos; }
 	const int& getYPos() const { return this->yPos; }
-	void setXPos(const int& _xPos);
-	void setYPos(const int& _yPos);
+
+	void setXPos(const int& _xPos) { this->xPos = _xPos; }
+	void setYPos(const int& _yPos) { this->yPos = _yPos; }
 };
 
