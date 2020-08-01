@@ -1,5 +1,6 @@
 #include "MovableObject.h"
 
+#prama once
 #pragma once
 class Dollar : public MovableObject
 {
