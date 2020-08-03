@@ -9,6 +9,7 @@ private:
 	int shootDelay;
 public:
 	ShootableObject(char _shootDir, int _xPos, int _yPos, int _shootDelay, char _reprVer, char _reprHor, bool _isVer) : Object{ _xPos, _yPos, _reprVer, _reprHor, _isVer }, shootDelay{_shootDelay}, shootDir{ _shootDir } {}
+	virtual ~ShootableObject() {}
 
 	void drawBullet() { cout << this->reprBullet;  }
 	const char& getReprBullet() { return this->reprBullet; }

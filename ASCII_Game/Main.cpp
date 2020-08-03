@@ -50,7 +50,12 @@ int main() {
 		if(!(mcr % gameManager->getPlayer()->getTimeDelay())) gameManager->movePlayer();
 		if(!(mcr % timeDelay::CANNON_SLOW)) gameManager->shootCannon(timeDelay::CANNON_SLOW);
 		if(!(mcr % timeDelay::CANNON_FAST)) gameManager->shootCannon(timeDelay::CANNON_FAST);
-		if(!(mcr % timeDelay::DOLLAR_NORMAL)) gameManager->moveDollars();
+		if (!(mcr % timeDelay::MOVABLE_OBJECT)) {
+			gameManager->moveObjects();
+			
+		}
+
+		
 	}
 	
 	////thread shootCannonSF{gameManager->shootCannonSlow};

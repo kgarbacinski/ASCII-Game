@@ -1,5 +1,12 @@
 #include "Object.h"
 
+enum class CollisionState {
+	EMPTY_FIELD,
+	AT,
+	DEATH,
+	WALL
+};
+
 #pragma once
 class MovableObject : public Object
 {
@@ -26,7 +33,11 @@ public:
 			this->xDir = 0;
 			this->yDir = 0;
 		}
+		
 	}
+	virtual ~MovableObject() {}
+
+	virtual void moveObject() = 0;
 
 	const int& getXDir() { return this->xDir; }
 	void setXDir(const int& _xDir) { this->xDir = _xDir; }

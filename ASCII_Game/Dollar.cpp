@@ -4,3 +4,10 @@ Dollar::Dollar(const int& _xPos, const int& _yPos, const char& _moveDir) : Movab
 {
 
 }
+
+void Dollar::moveObject()
+{
+	this->xPos = xPos + this->xDir;
+}
+
+

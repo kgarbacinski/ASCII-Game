@@ -200,7 +200,7 @@ void GameManagement::movePlayer()
 	}
 }
 
-CollisionState GameManagement::checkIfCollision(const int& newXPos, const int& newYPos)
+CollisionState GameManagement::checkIfCollision(const int& newXPos, const int& newYPos, char currType)
 {
 	// 0 sciana
 	// 9 death
@@ -214,7 +214,8 @@ CollisionState GameManagement::checkIfCollision(const int& newXPos, const int& n
 	}
 	if (boardASCII.at(newYPos).at(newXPos) == 'o' ||
 		boardASCII.at(newYPos).at(newXPos) == 'p' ||
-		boardASCII.at(newYPos).at(newXPos) == '$') {
+		boardASCII.at(newYPos).at(newXPos) == '$' || 
+		(boardASCII.at(newYPos).at(newXPos) == '%' && currType != '%')) {
 
 		return CollisionState::DEATH; // player's death 
 	}
@@ -330,33 +331,37 @@ void GameManagement::shootCannon(long long mcr) {
 
 void GameManagement::drawMovObjects()
 {
-	for (auto dollar : this->movableObjects) {
-		this->changeColor(LIGHT_GREEN);
-		this->gotoxy(dollar->getXPos(), dollar->getYPos());
-		dollar->drawObject();
+	for (auto object : this->movableObjects) {
+		if(dynamic_cast<Dollar*>(object) != nullptr) this->changeColor(LIGHT_GREEN);
+		else if(dynamic_cast<Percent*>(object) != nullptr) this->changeColor(PURPLE);
+
+		this->gotoxy(object->getXPos(), object->getYPos());
+		object->drawObject();
 		this->changeColor(WHITE);
 	}
 }
 
-void GameManagement::moveDollars()
+void GameManagement::moveObjects()
 {
-	for (auto dollar : this->movableObjects) {
-		int xPos = dollar->getXPos(), yPos = dollar->getYPos();
-		
-		if (this->checkIfCollision(xPos + dollar->getXDir(), yPos) == CollisionState::WALL) { // wall is next
-			dollar->setXDir(dollar->getXDir() * (-1)); // change dir
-		}
-		else if (this->checkIfCollision(xPos + dollar->getXDir(), yPos) == CollisionState::DEATH) {
-			this->killPlayer();
-		}
+	for (auto object : this->movableObjects) {
+			int xPos = object->getXPos(), yPos = object->getYPos();
+			
+			//unique_ptr<CollisionState(GameManagement::*)(const int&, const int&)> ptr(&checkIfCollision);
 
-		dollar->setXPos(xPos + dollar->getXDir());
-		this->clearCell(xPos, yPos);
-		this->board->modifyBoardASCII(xPos, yPos, ' ');
-		this->board->modifyBoardASCII(xPos + dollar->getXDir(), yPos, '$');
+			if (this->checkIfCollision(xPos + object->getXDir(), yPos + object->getYDir()) == CollisionState::WALL) { // wall is next
+				object->setXDir(object->getXDir() * (-1));
+			}
+			else if (this->checkIfCollision(xPos + object->getXDir(), yPos + object->getYDir()) == CollisionState::DEATH) {
+				this->killPlayer();
+			}
+
+			object->moveObject();
+			this->clearCell(xPos, yPos);
+			this->board->modifyBoardASCII(xPos, yPos, ' ');
+			this->board->modifyBoardASCII(xPos + object->getXDir(), yPos + object->getYDir(), object->getRepr());	
 	}
-
 	this->drawMovObjects();
+
 }
 
 void GameManagement::putAt(Object* at) {

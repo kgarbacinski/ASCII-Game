@@ -29,5 +29,8 @@ void WindowHandler::changeColor(const int& nameNumber){
 		case GRAY:
 			SetConsoleTextAttribute(hConsole, GRAY);
 			break;
+		case PURPLE:
+			SetConsoleTextAttribute(hConsole, PURPLE);
+			break;
 	}
 }
