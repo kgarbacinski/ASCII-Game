@@ -11,7 +11,8 @@ enum Colours {
 	LIGHT_BLUE = 11,
 	WHITE = 15,
 	LIGHT_GREEN = 10,
-	GRAY = 7
+	GRAY = 7,
+	PURPLE = 13
 };
 
 #pragma once

@@ -145,6 +145,7 @@
     <ClInclude Include="GameManagement.h" />
     <ClInclude Include="MovableObject.h" />
     <ClInclude Include="Object.h" />
+    <ClInclude Include="Percent.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="ShootableObject.h" />
     <ClInclude Include="WindowHandler.h" />
@@ -156,6 +157,7 @@
     <ClCompile Include="Dollar.cpp" />
     <ClCompile Include="GameManagement.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Percent.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="WindowHandler.cpp" />
   </ItemGroup>

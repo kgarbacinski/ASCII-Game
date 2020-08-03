@@ -17,6 +17,7 @@ public:
 		if (_isVer) this->repr = _reprVer;
 		else this->repr = _reprHor;		
 	}
+	virtual ~Object() {}
 
 	void drawObject() {
 		cout << this->repr;

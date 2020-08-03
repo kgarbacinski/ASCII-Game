@@ -6,25 +6,22 @@
 #include "Player.h"
 #include "Cannon.h"
 #include "Dollar.h"
+#include "Percent.h"
 #include "At.h"
 #include "MovableObject.h"
 #include "ShootableObject.h"
+#include <memory>
 
+using std::unique_ptr;
 using std::find_if;
 using namespace std::chrono;
 
 enum timeDelay {
 	CANNON_FAST = 500000,
 	CANNON_SLOW = 1000000,
-	DOLLAR_NORMAL = 500000
+	MOVABLE_OBJECT = 250000
 };
 
-enum class CollisionState {
-	EMPTY_FIELD,
-	AT,
-	DEATH,
-	WALL
-};
 
 #pragma once
 class GameManagement : public WindowHandler
@@ -32,6 +29,7 @@ class GameManagement : public WindowHandler
 private:
 	//Create objects
 	vector<ShootableObject*> shootableObjects{
+		/* CANNONS */
 		new Cannon(5, 25, timeDelay::CANNON_SLOW, true, 'D'), // first from left, section down
 
 		new Cannon(5,15, timeDelay::CANNON_SLOW,true,'D'),
@@ -54,12 +52,20 @@ private:
 		new Cannon(41,36, timeDelay::CANNON_SLOW,true,'U'),
 		new Cannon(43,36, timeDelay::CANNON_FAST,true,'U'),
 		new Cannon(45,36, timeDelay::CANNON_FAST,true,'U'),
-		new Cannon(47,36, timeDelay::CANNON_SLOW,true,'U')
+		new Cannon(47,36, timeDelay::CANNON_SLOW,true,'U'),
+
+
+
 	};
 
 	vector<MovableObject*> movableObjects{
+		/* DOLLARS */
 		new Dollar(10, 31, 'L'),
-		new Dollar(10, 33 ,'R')
+		new Dollar(10, 33 ,'R'),
+	
+		/* PERCENTS */
+		new Percent(19, 32, 14, 22, 29, 37),
+		new Percent(20, 32, 14, 22, 29, 37)
 	};
 
 	vector<Object*> ats{
@@ -96,7 +102,7 @@ public:
 	void drawPlayer();
 	void killPlayer();
 
-	CollisionState checkIfCollision(const int& newXPos, const int& newYPos);
+	CollisionState checkIfCollision(const int& newXPos, const int& newYPos, char currType='%');
 
 	//Cannons
 	void initBullet(ShootableObject* cannon, const int& xMove, const int& yMove);
@@ -105,7 +111,7 @@ public:
 	void drawBullet(const int& xPos, const int& yPos);
 
 	//Dollars
-	void moveDollars();
+	void moveObjects();
 
 	//Ats
 	void putAt(Object* at);
