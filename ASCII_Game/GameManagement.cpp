@@ -3,7 +3,54 @@
 GameManagement* GameManagement::instance = nullptr;
 
 GameManagement::GameManagement() {
+	/* ADD SHOOTABLE OBJECTS */
+	this->shootableObjects.push_back(this->shootableObjectFactory->createCannon(5, 25, timeDelay::CANNON_SLOW, true, 'D'));
+	this->shootableObjects.push_back(this->shootableObjectFactory->createCannon(5, 15, timeDelay::CANNON_SLOW, true, 'D'));
+	this->shootableObjects.push_back(this->shootableObjectFactory->createCannon(11, 28, timeDelay::CANNON_SLOW, false, 'R'));
+
+	this->shootableObjects.push_back(this->shootableObjectFactory->createCannon(26, 29, timeDelay::CANNON_FAST, true, 'D'));
+	this->shootableObjects.push_back(this->shootableObjectFactory->createCannon(27, 29, timeDelay::CANNON_SLOW, true, 'D'));
+	this->shootableObjects.push_back(this->shootableObjectFactory->createCannon(28, 29, timeDelay::CANNON_FAST, true, 'D'));
+	this->shootableObjects.push_back(this->shootableObjectFactory->createCannon(29, 29, timeDelay::CANNON_SLOW, true, 'D'));
+
+	this->shootableObjects.push_back(this->shootableObjectFactory->createCannon(30, 29, timeDelay::CANNON_FAST, true, 'D'));
+	this->shootableObjects.push_back(this->shootableObjectFactory->createCannon(31, 29, timeDelay::CANNON_SLOW, true, 'D'));
+	this->shootableObjects.push_back(this->shootableObjectFactory->createCannon(32, 29, timeDelay::CANNON_FAST, true, 'D'));
+	this->shootableObjects.push_back(this->shootableObjectFactory->createCannon(33, 29, timeDelay::CANNON_SLOW, true, 'D'));
+	this->shootableObjects.push_back(this->shootableObjectFactory->createCannon(34, 29, timeDelay::CANNON_FAST, true, 'D'));
+	this->shootableObjects.push_back(this->shootableObjectFactory->createCannon(35, 29, timeDelay::CANNON_SLOW, true, 'D'));
+	this->shootableObjects.push_back(this->shootableObjectFactory->createCannon(36, 29, timeDelay::CANNON_FAST, true, 'D'));
+
+	this->shootableObjects.push_back(this->shootableObjectFactory->createCannon(41, 36, timeDelay::CANNON_SLOW, true, 'U'));
+	this->shootableObjects.push_back(this->shootableObjectFactory->createCannon(43, 36, timeDelay::CANNON_FAST, true, 'U'));
+	this->shootableObjects.push_back(this->shootableObjectFactory->createCannon(45, 36, timeDelay::CANNON_FAST, true, 'U'));
+	this->shootableObjects.push_back(this->shootableObjectFactory->createCannon(47, 36, timeDelay::CANNON_SLOW, true, 'U'));
+
+	
+	/* ADD MOVABLE OBJECTS */
+	this->movableObjects.push_back(this->movableObjectFactory->createDollar(10, 31, 'L'));
+	this->movableObjects.push_back(this->movableObjectFactory->createDollar(10, 33, 'R'));
+	this->movableObjects.push_back(this->movableObjectFactory->createPercent(19, 32, 14, 22, 29, 37));
+	this->movableObjects.push_back(this->movableObjectFactory->createPercent(20, 32, 14, 22, 29, 37));
+	
 }
+
+GameManagement::~GameManagement()
+{
+	delete this->shootableObjectFactory;
+	delete this->movableObjectFactory;
+	delete this->board;
+	delete this->player;
+	for (auto& v : this->movableObjects) {
+		delete v;
+	}
+	
+	for (auto& v : this->shootableObjects) {
+		delete v;
+	}
+}
+
+
 
 void GameManagement::drawShotObjects()
 {

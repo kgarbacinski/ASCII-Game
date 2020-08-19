@@ -8,8 +8,8 @@
 #include "Dollar.h"
 #include "Percent.h"
 #include "At.h"
-#include "MovableObject.h"
-#include "ShootableObject.h"
+#include "ShootableObjectFactory.h"
+#include "MovableObjectFactory.h"
 #include <memory>
 
 using std::unique_ptr;
@@ -27,46 +27,11 @@ enum timeDelay {
 class GameManagement : public WindowHandler
 {
 private:
-	//Create objects
-	vector<ShootableObject*> shootableObjects{
-		/* CANNONS */
-		new Cannon(5, 25, timeDelay::CANNON_SLOW, true, 'D'), // first from left, section down
-
-		new Cannon(5,15, timeDelay::CANNON_SLOW,true,'D'),
-
-		new Cannon(11, 28, timeDelay::CANNON_SLOW, false, 'R'),
-
-		// One row
-		new Cannon(26, 29, timeDelay::CANNON_FAST, true, 'D'),
-		new Cannon(27, 29, timeDelay::CANNON_SLOW, true, 'D'),
-		new Cannon(28, 29, timeDelay::CANNON_FAST, true, 'D'),
-		new Cannon(29, 29, timeDelay::CANNON_SLOW, true, 'D'),
-
-		new Cannon(31, 29, timeDelay::CANNON_FAST, true, 'D'),
-		new Cannon(32, 29, timeDelay::CANNON_SLOW, true, 'D'),
-		new Cannon(33, 29, timeDelay::CANNON_FAST, true, 'D'),
-		new Cannon(34, 29, timeDelay::CANNON_SLOW, true, 'D'),
-		new Cannon(35, 29, timeDelay::CANNON_FAST, true, 'D'),
-		new Cannon(36, 29, timeDelay::CANNON_SLOW, true, 'D'),
-
-		new Cannon(41,36, timeDelay::CANNON_SLOW,true,'U'),
-		new Cannon(43,36, timeDelay::CANNON_FAST,true,'U'),
-		new Cannon(45,36, timeDelay::CANNON_FAST,true,'U'),
-		new Cannon(47,36, timeDelay::CANNON_SLOW,true,'U'),
-
-
-
-	};
-
-	vector<MovableObject*> movableObjects{
-		/* DOLLARS */
-		new Dollar(10, 31, 'L'),
-		new Dollar(10, 33 ,'R'),
+	ShootableObjectFactory* shootableObjectFactory{ new ShootableObjectFactory() };
+	MovableObjectFactory* movableObjectFactory{ new MovableObjectFactory() };
 	
-		/* PERCENTS */
-		new Percent(19, 32, 14, 22, 29, 37),
-		new Percent(20, 32, 14, 22, 29, 37)
-	};
+	vector<ShootableObject*> shootableObjects;
+	vector<MovableObject*> movableObjects;
 
 	vector<Object*> ats{
 		new At(56, 26),
@@ -80,6 +45,7 @@ private:
 
 	static GameManagement* instance;
 	GameManagement();
+	~GameManagement();
 public:
 	static GameManagement* getInstance() {
 		if (instance == nullptr) {

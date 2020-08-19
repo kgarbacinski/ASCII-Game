@@ -4,3 +4,7 @@ Cannon::Cannon(const int& _xPos, const int& _yPos, const int& _timeDelay, const 
 {	
 }
 
+Cannon::~Cannon()
+{
+}
+
