@@ -5,6 +5,10 @@ Percent::Percent(const int& _xPos, const int& _yPos, const int& _xStart, const i
 
 }
 
+Percent::~Percent()
+{
+}
+
 void Percent::moveObject()
 {
 	int dirs[2] = { 1, -1 };

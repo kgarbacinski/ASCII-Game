@@ -36,7 +36,6 @@ public:
 		
 	}
 	virtual ~MovableObject() {}
-
 	virtual void moveObject() = 0;
 
 	const int& getXDir() { return this->xDir; }

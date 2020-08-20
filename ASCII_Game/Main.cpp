@@ -21,6 +21,10 @@ void play(GameManagement* gameManager) {
 
 int main() {
 	srand(time(NULL));
+<<<<<<< HEAD
+=======
+
+>>>>>>> b77d54b39027634d29921ea3bd162fbefe868007
 	/* Initializing objects */
 	GameManagement* gameManager = GameManagement::getInstance();
 
