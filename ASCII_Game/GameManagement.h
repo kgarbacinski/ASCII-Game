@@ -33,9 +33,13 @@ private:
 	vector<ShootableObject*> shootableObjects;
 	vector<MovableObject*> movableObjects;
 
+	void addCannonToShootableObjVector(const int& _xPos, const int& _yPos, const int& _timeDelay, const bool& _isVer, const char& _shootDir);
+	void addPercentToMoveableObjVector(const int& _xPos, const int& _yPos, const int& _xStart, const int& _xEnd, const int& _yStart, const int& _yEnd);
+	void addDollarToMoveableObjVector(const int& _xPos, const int& _yPos, const char& _moveDir);
+
 	vector<Object*> ats{
 		new At(56, 26),
-		new At(57, 34)
+		new At(12, 29)
 	};
 
 	// Create board
@@ -46,6 +50,7 @@ private:
 	static GameManagement* instance;
 	GameManagement();
 	~GameManagement();
+
 public:
 	static GameManagement* getInstance() {
 		if (instance == nullptr) {
@@ -68,7 +73,7 @@ public:
 	void drawPlayer();
 	void killPlayer();
 
-	CollisionState checkIfCollision(const int& newXPos, const int& newYPos, char currType='%');
+	CollisionState checkIfCollision(const int& newXPos, const int& newYPos, char currType);
 
 	//Cannons
 	void initBullet(ShootableObject* cannon, const int& xMove, const int& yMove);

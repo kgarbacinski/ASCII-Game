@@ -2,36 +2,53 @@
 
 GameManagement* GameManagement::instance = nullptr;
 
+void GameManagement::addCannonToShootableObjVector(const int& _xPos, const int& _yPos, const int& _timeDelay, const bool& _isVer, const char& _shootDir)
+{
+	this->shootableObjects.push_back(this->shootableObjectFactory->createCannon(_xPos, _yPos, _timeDelay, _isVer, _shootDir));
+}
+
+void GameManagement::addPercentToMoveableObjVector(const int& _xPos, const int& _yPos, const int& _xStart, const int& _xEnd, const int& _yStart, const int& _yEnd)
+{
+	this->movableObjects.push_back(this->movableObjectFactory->createPercent(_xPos, _yPos, _xStart, _xEnd, _yStart, _yEnd));
+}
+
+void GameManagement::addDollarToMoveableObjVector(const int& _xPos, const int& _yPos, const char& _moveDir)
+{
+	this->movableObjects.push_back(this->movableObjectFactory->createDollar(_xPos, _yPos, _moveDir));
+}
+
 GameManagement::GameManagement() {
 	/* ADD SHOOTABLE OBJECTS */
-	this->shootableObjects.push_back(this->shootableObjectFactory->createCannon(5, 25, timeDelay::CANNON_SLOW, true, 'D'));
-	this->shootableObjects.push_back(this->shootableObjectFactory->createCannon(5, 15, timeDelay::CANNON_SLOW, true, 'D'));
-	this->shootableObjects.push_back(this->shootableObjectFactory->createCannon(11, 28, timeDelay::CANNON_SLOW, false, 'R'));
+	this->addCannonToShootableObjVector(5, 25, timeDelay::CANNON_SLOW, true, 'D');
+	this->addCannonToShootableObjVector(5, 15, timeDelay::CANNON_SLOW, true, 'D');
+	this->addCannonToShootableObjVector(11, 28, timeDelay::CANNON_SLOW, false, 'R');
 
-	this->shootableObjects.push_back(this->shootableObjectFactory->createCannon(26, 29, timeDelay::CANNON_FAST, true, 'D'));
-	this->shootableObjects.push_back(this->shootableObjectFactory->createCannon(27, 29, timeDelay::CANNON_SLOW, true, 'D'));
-	this->shootableObjects.push_back(this->shootableObjectFactory->createCannon(28, 29, timeDelay::CANNON_FAST, true, 'D'));
-	this->shootableObjects.push_back(this->shootableObjectFactory->createCannon(29, 29, timeDelay::CANNON_SLOW, true, 'D'));
+	this->addCannonToShootableObjVector(26, 29, timeDelay::CANNON_FAST, true, 'D');
+	this->addCannonToShootableObjVector(27, 29, timeDelay::CANNON_FAST, true, 'D');
+	this->addCannonToShootableObjVector(28, 29, timeDelay::CANNON_FAST, true, 'D');
+	this->addCannonToShootableObjVector(29, 29, timeDelay::CANNON_FAST, true, 'D');
 
-	this->shootableObjects.push_back(this->shootableObjectFactory->createCannon(30, 29, timeDelay::CANNON_FAST, true, 'D'));
-	this->shootableObjects.push_back(this->shootableObjectFactory->createCannon(31, 29, timeDelay::CANNON_SLOW, true, 'D'));
-	this->shootableObjects.push_back(this->shootableObjectFactory->createCannon(32, 29, timeDelay::CANNON_FAST, true, 'D'));
-	this->shootableObjects.push_back(this->shootableObjectFactory->createCannon(33, 29, timeDelay::CANNON_SLOW, true, 'D'));
-	this->shootableObjects.push_back(this->shootableObjectFactory->createCannon(34, 29, timeDelay::CANNON_FAST, true, 'D'));
-	this->shootableObjects.push_back(this->shootableObjectFactory->createCannon(35, 29, timeDelay::CANNON_SLOW, true, 'D'));
-	this->shootableObjects.push_back(this->shootableObjectFactory->createCannon(36, 29, timeDelay::CANNON_FAST, true, 'D'));
+	this->addCannonToShootableObjVector(30, 29, timeDelay::CANNON_FAST, true, 'D');
+	this->addCannonToShootableObjVector(31, 29, timeDelay::CANNON_SLOW, true, 'D');
+	this->addCannonToShootableObjVector(32, 29, timeDelay::CANNON_FAST, true, 'D');
+	this->addCannonToShootableObjVector(33, 29, timeDelay::CANNON_SLOW, true, 'D');
+	this->addCannonToShootableObjVector(34, 29, timeDelay::CANNON_FAST, true, 'D');
+	this->addCannonToShootableObjVector(35, 29, timeDelay::CANNON_SLOW, true, 'D');
+	this->addCannonToShootableObjVector(36, 29, timeDelay::CANNON_FAST, true, 'D');
 
-	this->shootableObjects.push_back(this->shootableObjectFactory->createCannon(41, 36, timeDelay::CANNON_SLOW, true, 'U'));
-	this->shootableObjects.push_back(this->shootableObjectFactory->createCannon(43, 36, timeDelay::CANNON_FAST, true, 'U'));
-	this->shootableObjects.push_back(this->shootableObjectFactory->createCannon(45, 36, timeDelay::CANNON_FAST, true, 'U'));
-	this->shootableObjects.push_back(this->shootableObjectFactory->createCannon(47, 36, timeDelay::CANNON_SLOW, true, 'U'));
+	this->addCannonToShootableObjVector(41, 36, timeDelay::CANNON_SLOW, true, 'U');
+	this->addCannonToShootableObjVector(43, 36, timeDelay::CANNON_FAST, true, 'U');
+	this->addCannonToShootableObjVector(45, 36, timeDelay::CANNON_FAST, true, 'U');
+	this->addCannonToShootableObjVector(47, 36, timeDelay::CANNON_SLOW, true, 'U');
 
+	this->addCannonToShootableObjVector(58,25 , timeDelay::CANNON_SLOW, false, 'L');
 	
-	/* ADD MOVABLE OBJECTS */
-	this->movableObjects.push_back(this->movableObjectFactory->createDollar(10, 31, 'L'));
-	this->movableObjects.push_back(this->movableObjectFactory->createDollar(10, 33, 'R'));
-	this->movableObjects.push_back(this->movableObjectFactory->createPercent(19, 32, 14, 22, 29, 37));
-	this->movableObjects.push_back(this->movableObjectFactory->createPercent(20, 32, 14, 22, 29, 37));
+	/* ADD MOVEABLE OBJECTS */
+	this->addDollarToMoveableObjVector(10, 31, 'L');
+	this->addDollarToMoveableObjVector(10, 33, 'R');
+
+	this->addPercentToMoveableObjVector(19, 32, 14, 22, 29, 37);
+	this->addPercentToMoveableObjVector(20, 32, 14, 22, 29, 37);
 	
 }
 
@@ -120,8 +137,8 @@ vector<Object*>::iterator GameManagement::findAt(const int& xPos, const int& yPo
 bool GameManagement::moveAt(Object* at, const int& xDir, const int& yDir) {
 	int xPos = at->getXPos(), yPos = at->getYPos();
 
-	if (checkIfCollision(xPos + xDir, yPos + yDir) != CollisionState::WALL && 
-		checkIfCollision(xPos + xDir, yPos + yDir) != CollisionState::AT &&
+	if (checkIfCollision(xPos + xDir, yPos + yDir, '@') != CollisionState::WALL && 
+		checkIfCollision(xPos + xDir, yPos + yDir, '@') != CollisionState::AT &&
 		this->board->getBoardASCII().at(yPos + yDir).at(xPos + xDir) != 'c' &&
 		this->board->getBoardASCII().at(yPos + yDir).at(xPos + xDir) != '$') {
 		this->clearCell(xPos, yPos);
@@ -150,7 +167,7 @@ void GameManagement::movePlayer()
 	int xPos = this->player->getxPos(), yPos = this->player->getyPos();
 
 	if (GetKeyState('A') & 0x8000) {
-		if (this->checkIfCollision(xPos - 1, yPos) == CollisionState::EMPTY_FIELD) { // player on the wall
+		if (this->checkIfCollision(xPos - 1, yPos, 'p') == CollisionState::EMPTY_FIELD) { // player on the wall
 			this->clearCell(xPos, yPos);
 
 			this->board->modifyBoardASCII(xPos, yPos, ' ');
@@ -159,10 +176,10 @@ void GameManagement::movePlayer()
 
 			this->putPlayer();
 		}
-		else if (this->checkIfCollision(xPos - 1, yPos) == CollisionState::DEATH) { // player's death
+		else if (this->checkIfCollision(xPos - 1, yPos, 'p') == CollisionState::DEATH) { // player's death
 			this->killPlayer();
 		}
-		else if (this->checkIfCollision(xPos - 1, yPos) == CollisionState::AT) { // next field contains at
+		else if (this->checkIfCollision(xPos - 1, yPos, 'p') == CollisionState::AT) { // next field contains at
 			vector<Object*>::iterator it = this->findAt(xPos - 1, yPos);
 			if (it != this->ats.end() && this->moveAt(*it, -1, 0)) {
 				this->clearCell(xPos, yPos);
@@ -175,7 +192,7 @@ void GameManagement::movePlayer()
 	}
 
 	else if (GetKeyState('D') & 0x8000) {
-		if (this->checkIfCollision(xPos + 1, yPos) == CollisionState::EMPTY_FIELD) {
+		if (this->checkIfCollision(xPos + 1, yPos, 'p') == CollisionState::EMPTY_FIELD) {
 			this->clearCell(xPos, yPos);
 
 			this->board->modifyBoardASCII(this->player->getxPos(), this->player->getyPos(), ' ');
@@ -184,10 +201,10 @@ void GameManagement::movePlayer()
 
 			this->putPlayer();
 		}
-		else if (this->checkIfCollision(xPos + 1, yPos) == CollisionState::DEATH) {
+		else if (this->checkIfCollision(xPos + 1, yPos, 'p') == CollisionState::DEATH) {
 			this->killPlayer();
 		}
-		else if (this->checkIfCollision(xPos + 1, yPos) == CollisionState::AT) { // next field contains at
+		else if (this->checkIfCollision(xPos + 1, yPos, 'p') == CollisionState::AT) { // next field contains at
 			vector<Object*>::iterator it = this->findAt(xPos + 1, yPos);
 			if (it != this->ats.end() && this->moveAt(*it, 1, 0)) {
 				this->clearCell(xPos, yPos);
@@ -200,7 +217,7 @@ void GameManagement::movePlayer()
 
 	}
 	else if (GetKeyState('W') & 0x8000) {
-		if (this->checkIfCollision(xPos, yPos - 1) == CollisionState::EMPTY_FIELD) {
+		if (this->checkIfCollision(xPos, yPos - 1, 'p') == CollisionState::EMPTY_FIELD) {
 			this->clearCell(xPos, yPos);
 
 			this->board->modifyBoardASCII(this->player->getxPos(), this->player->getyPos(), ' ');
@@ -208,10 +225,10 @@ void GameManagement::movePlayer()
 			this->player->setyPos(yPos - 1);
 			this->putPlayer();
 		}
-		else if (this->checkIfCollision(xPos, yPos - 1) == CollisionState::DEATH) {
+		else if (this->checkIfCollision(xPos, yPos - 1, 'p') == CollisionState::DEATH) {
 			this->killPlayer();
 		}
-		else if (this->checkIfCollision(xPos, yPos - 1) == CollisionState::AT) { // next field contains at
+		else if (this->checkIfCollision(xPos, yPos - 1, 'p') == CollisionState::AT) { // next field contains at
 			vector<Object*>::iterator it = this->findAt(xPos, yPos - 1);
 			if (it != this->ats.end() && this->moveAt(*it, 0, -1)) {
 				this->clearCell(xPos, yPos);
@@ -223,7 +240,7 @@ void GameManagement::movePlayer()
 		}
 	}
 	else if (GetKeyState('S') & 0x8000) {
-		if (this->checkIfCollision(xPos, yPos + 1) == CollisionState::EMPTY_FIELD) {
+		if (this->checkIfCollision(xPos, yPos + 1, 'p') == CollisionState::EMPTY_FIELD) {
 			this->clearCell(xPos, yPos);
 
 			this->board->modifyBoardASCII(this->player->getxPos(), this->player->getyPos(), ' ');
@@ -231,10 +248,10 @@ void GameManagement::movePlayer()
 			this->player->setyPos(yPos + 1);
 			this->putPlayer();
 		}
-		else if (this->checkIfCollision(xPos, yPos + 1) == CollisionState::DEATH) {
+		else if (this->checkIfCollision(xPos, yPos + 1, 'p') == CollisionState::DEATH) {
 			this->killPlayer();
 		}
-		else if (this->checkIfCollision(xPos, yPos + 1) == CollisionState::AT) { // next field contains at
+		else if (this->checkIfCollision(xPos, yPos + 1, 'p') == CollisionState::AT) { // next field contains at
 			vector<Object*>::iterator it = this->findAt(xPos, yPos + 1);
 			if (it != this->ats.end() && this->moveAt(*it, 0, 1)) {
 				this->clearCell(xPos, yPos);
@@ -249,19 +266,15 @@ void GameManagement::movePlayer()
 
 CollisionState GameManagement::checkIfCollision(const int& newXPos, const int& newYPos, char currType)
 {
-	// 0 sciana
-	// 9 death
-	// 1 at
-	// -1 wall
 	vector<string> boardASCII = this->board->getBoardASCII();
 	// Check wall
 	if (boardASCII.at(newYPos).at(newXPos) == '#' ||
 		boardASCII.at(newYPos).at(newXPos) == 'c') {
 		return CollisionState::WALL; // dla sciany
 	}
-	if (boardASCII.at(newYPos).at(newXPos) == 'o' ||
-		boardASCII.at(newYPos).at(newXPos) == 'p' ||
-		boardASCII.at(newYPos).at(newXPos) == '$' || 
+	if ((boardASCII.at(newYPos).at(newXPos) == 'o') && (currType != 'o') ||
+		(boardASCII.at(newYPos).at(newXPos) == 'p') && (currType != 'p') ||
+		(boardASCII.at(newYPos).at(newXPos) == '$' && currType != '$') || 
 		(boardASCII.at(newYPos).at(newXPos) == '%' && currType != '%')) {
 
 		return CollisionState::DEATH; // player's death 
@@ -279,14 +292,14 @@ void GameManagement::moveBullet(ShootableObject* cannon, const int& xMove, const
 	// Move Vertically
 	if (yMove != 0 && xMove == 0) {
 		int y;
-		for (y = cannon->getYPos() + yMove; boardASCII.at(y).at(cannon->getXPos()) != 'o'; y++) {
+		for (y = cannon->getYPos() + yMove; boardASCII.at(y).at(cannon->getXPos()) != 'o'; y += yMove) {
 			if (boardASCII.at(y).at(cannon->getXPos()) == '#') {
 				this->initBullet(cannon, xMove, yMove);
 				return;
 			}
 		}
 		// For Empty Field
-		if (checkIfCollision(cannon->getXPos(), y + yMove) == CollisionState::EMPTY_FIELD) {
+		if (checkIfCollision(cannon->getXPos(), y + yMove, 'o') == CollisionState::EMPTY_FIELD) {
 			this->board->modifyBoardASCII(cannon->getXPos(), y, ' ');
 			this->board->modifyBoardASCII(cannon->getXPos(), y + yMove, 'o');
 
@@ -295,7 +308,7 @@ void GameManagement::moveBullet(ShootableObject* cannon, const int& xMove, const
 		
 		}
 		// For Player
-		else if (checkIfCollision(cannon->getXPos(), y + yMove) == CollisionState::DEATH) {
+		else if (checkIfCollision(cannon->getXPos(), y + yMove, 'o') == CollisionState::DEATH) {
 			this->killPlayer();
 
 			this->board->modifyBoardASCII(cannon->getXPos(), y, ' ');
@@ -306,8 +319,8 @@ void GameManagement::moveBullet(ShootableObject* cannon, const int& xMove, const
 		}
 
 		// For Wall
-		else if ((checkIfCollision(cannon->getXPos(), y + yMove) == CollisionState::WALL ||
-			checkIfCollision(cannon->getXPos(), y + yMove) == CollisionState::AT)) {
+		else if ((checkIfCollision(cannon->getXPos(), y + yMove, 'o') == CollisionState::WALL ||
+			checkIfCollision(cannon->getXPos(), y + yMove, 'o') == CollisionState::AT)) {
 			this->board->modifyBoardASCII(cannon->getXPos(), y, ' ');
 			this->initBullet(cannon, xMove, yMove);
 
@@ -318,21 +331,21 @@ void GameManagement::moveBullet(ShootableObject* cannon, const int& xMove, const
 	// Move Horizontally
 	else if (xMove != 0 && yMove == 0) {
 		int x;
-		for (x = cannon->getXPos() + xMove; boardASCII.at(cannon->getYPos()).at(x) != 'o'; x++) {
+		for (x = cannon->getXPos() + xMove; boardASCII.at(cannon->getYPos()).at(x) != 'o'; x += xMove) {
 			if (boardASCII.at(cannon->getYPos()).at(x) == '#') {
 				this->initBullet(cannon, xMove, yMove);
 				return;
 			}
 		}
 
-		if (checkIfCollision(x + xMove, cannon->getYPos()) == CollisionState::EMPTY_FIELD) {
+		if (checkIfCollision(x + xMove, cannon->getYPos(), 'o') == CollisionState::EMPTY_FIELD) {
 			this->board->modifyBoardASCII(x, cannon->getYPos(), ' ');
 			this->board->modifyBoardASCII(x + xMove, cannon->getYPos(), 'o');
 
 			this->clearCell(x, cannon->getYPos());
 			this->drawBullet(x + xMove, cannon->getYPos());
 		}
-		else if (checkIfCollision(x + xMove, cannon->getYPos()) == CollisionState::DEATH) {
+		else if (checkIfCollision(x + xMove, cannon->getYPos(), 'o') == CollisionState::DEATH) {
 			this->killPlayer();
 
 			this->board->modifyBoardASCII(x, cannon->getYPos(), ' ');
@@ -341,8 +354,8 @@ void GameManagement::moveBullet(ShootableObject* cannon, const int& xMove, const
 			this->clearCell(x, cannon->getYPos());
 			this->drawBullet(x + xMove, cannon->getYPos());
 		}
-		else if ((checkIfCollision(x + xMove, cannon->getYPos()) == CollisionState::WALL ||
-			checkIfCollision(x + xMove, cannon->getYPos()) == CollisionState::AT)) {
+		else if ((checkIfCollision(x + xMove, cannon->getYPos(), 'o') == CollisionState::WALL ||
+			checkIfCollision(x + xMove, cannon->getYPos(), 'o') == CollisionState::AT)) {
 			this->board->modifyBoardASCII(x, cannon->getYPos(), ' ');
 			this->initBullet(cannon, xMove, yMove);
 
@@ -362,7 +375,7 @@ void GameManagement::drawBullet(const int& xPos, const int& yPos) {
 
 
 void GameManagement::initBullet(ShootableObject* cannon, const int& xMove, const int& yMove) {
-	if (checkIfCollision(cannon->getXPos() + xMove, cannon->getYPos() + yMove) == CollisionState::EMPTY_FIELD) {
+	if (checkIfCollision(cannon->getXPos() + xMove, cannon->getYPos() + yMove, 'o') == CollisionState::EMPTY_FIELD) {
 		this->board->modifyBoardASCII(cannon->getXPos() + xMove, cannon->getYPos() + yMove, 'o');
 	}
 }
@@ -395,10 +408,10 @@ void GameManagement::moveObjects()
 			
 			//unique_ptr<CollisionState(GameManagement::*)(const int&, const int&)> ptr(&checkIfCollision);
 
-			if (this->checkIfCollision(xPos + object->getXDir(), yPos + object->getYDir()) == CollisionState::WALL) { // wall is next
+			if (this->checkIfCollision(xPos + object->getXDir(), yPos + object->getYDir(), object->getRepr()) == CollisionState::WALL) { // wall is next
 				object->setXDir(object->getXDir() * (-1));
 			}
-			else if (this->checkIfCollision(xPos + object->getXDir(), yPos + object->getYDir()) == CollisionState::DEATH) {
+			else if (this->checkIfCollision(xPos + object->getXDir(), yPos + object->getYDir(), object->getRepr()) == CollisionState::DEATH) {
 				this->killPlayer();
 			}
 
