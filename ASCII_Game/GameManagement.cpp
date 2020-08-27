@@ -41,14 +41,70 @@ GameManagement::GameManagement() {
 	this->addCannonToShootableObjVector(45, 36, timeDelay::CANNON_FAST, true, 'U');
 	this->addCannonToShootableObjVector(47, 36, timeDelay::CANNON_SLOW, true, 'U');
 
-	this->addCannonToShootableObjVector(58,25 , timeDelay::CANNON_SLOW, false, 'L');
-	
+	this->addCannonToShootableObjVector(58,25, timeDelay::CANNON_SLOW, false, 'L');
+	this->addCannonToShootableObjVector(58,24, timeDelay::CANNON_SLOW, false, 'L');
+	this->addCannonToShootableObjVector(58,23, timeDelay::CANNON_SLOW, false, 'L');
+
+	this->addCannonToShootableObjVector(18,8, timeDelay::CANNON_SLOW, true, 'D');
+	this->addCannonToShootableObjVector(19,8, timeDelay::CANNON_SLOW, true, 'D');
+	this->addCannonToShootableObjVector(20,8, timeDelay::CANNON_SLOW, true, 'D');
+	this->addCannonToShootableObjVector(21,8, timeDelay::CANNON_SLOW, true, 'D');
+	this->addCannonToShootableObjVector(22,8, timeDelay::CANNON_SLOW, true, 'D');
+	this->addCannonToShootableObjVector(23,8, timeDelay::CANNON_SLOW, true, 'D');
+	this->addCannonToShootableObjVector(24,8, timeDelay::CANNON_SLOW, true, 'D');
+	this->addCannonToShootableObjVector(25,8, timeDelay::CANNON_SLOW, true, 'D');
+	this->addCannonToShootableObjVector(26,8, timeDelay::CANNON_SLOW, true, 'D');
+	this->addCannonToShootableObjVector(27,8, timeDelay::CANNON_SLOW, true, 'D');
+	this->addCannonToShootableObjVector(28,8, timeDelay::CANNON_SLOW, true, 'D');
+	this->addCannonToShootableObjVector(29,8, timeDelay::CANNON_SLOW, true, 'D');
+	this->addCannonToShootableObjVector(30,8, timeDelay::CANNON_SLOW, true, 'D');
+	this->addCannonToShootableObjVector(31,8, timeDelay::CANNON_SLOW, true, 'D');
+	this->addCannonToShootableObjVector(32,8, timeDelay::CANNON_SLOW, true, 'D');
+
+	this->addCannonToShootableObjVector(54,33, timeDelay::CANNON_SLOW, false, 'L');
+	this->addCannonToShootableObjVector(54,29, timeDelay::CANNON_SLOW, false, 'L');
+
+
 	/* ADD MOVEABLE OBJECTS */
 	this->addDollarToMoveableObjVector(10, 31, 'L');
 	this->addDollarToMoveableObjVector(10, 33, 'R');
+	
+	this->addDollarToMoveableObjVector(8, 2, 'R');
+	this->addDollarToMoveableObjVector(10, 2, 'L');
+
+	this->addDollarToMoveableObjVector(8, 3, 'L');
+	this->addDollarToMoveableObjVector(10, 3, 'R');
+	this->addDollarToMoveableObjVector(12, 3, 'L');
+
+	this->addDollarToMoveableObjVector(8, 4, 'L');
+	this->addDollarToMoveableObjVector(10, 4, 'R');
+
+	this->addDollarToMoveableObjVector(10, 5, 'R');
+
+	this->addDollarToMoveableObjVector(46, 33,'R');
+	this->addDollarToMoveableObjVector(46, 31,'L');
+	this->addDollarToMoveableObjVector(46, 29,'R');
+
+	this->addDollarToMoveableObjVector(48, 34,'R');
+
+	this->addDollarToMoveableObjVector(70, 11, 'L');
+	this->addDollarToMoveableObjVector(68, 11, 'R');
+
+	this->addDollarToMoveableObjVector(70,12 ,'R');
+
+	this->addDollarToMoveableObjVector(70,13 ,'R');
+	this->addDollarToMoveableObjVector(68,13 ,'L');
+
+	
 
 	this->addPercentToMoveableObjVector(19, 32, 14, 22, 29, 37);
 	this->addPercentToMoveableObjVector(20, 32, 14, 22, 29, 37);
+
+	this->addPercentToMoveableObjVector(28, 20, 23, 36, 17, 28);
+	this->addPercentToMoveableObjVector(28, 20, 23, 36, 17, 28);
+	this->addPercentToMoveableObjVector(28, 20, 23, 36, 17, 28);
+	this->addPercentToMoveableObjVector(28, 20, 23, 36, 17, 28);
+	
 	
 }
 
