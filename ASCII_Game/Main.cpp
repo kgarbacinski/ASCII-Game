@@ -2,29 +2,22 @@
 #include <thread>   
 #include "GameManagement.h"
 #include "Cannon.h"
+#include "Menu.h"
 using namespace std; 
-
-void play(GameManagement* gameManager) {
-	
-
-	while (true) {
-		/*vector<string> board = gameManager->getBoard()->getBoardASCII();
-
-		for (string line : board) {
-			for (char litera : line) {
-				cout << litera;
-			}
-			cout << '\n';
-		}*/
-	}
-}
 
 int main() {
 	srand(time(NULL));
 <<<<<<< HEAD
 =======
 
+<<<<<<< HEAD
 >>>>>>> b77d54b39027634d29921ea3bd162fbefe868007
+=======
+	Menu* menu = Menu::getInstance();
+
+	menu->drawMenu();
+
+>>>>>>> f3d3281e3b741bc6af659509302e56ee7ba79342
 	/* Initializing objects */
 	GameManagement* gameManager = GameManagement::getInstance();
 
