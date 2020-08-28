@@ -37,10 +37,7 @@ private:
 	void addPercentToMoveableObjVector(const int& _xPos, const int& _yPos, const int& _xStart, const int& _xEnd, const int& _yStart, const int& _yEnd);
 	void addDollarToMoveableObjVector(const int& _xPos, const int& _yPos, const char& _moveDir);
 
-	vector<Object*> ats{
-		new At(56, 26),
-		new At(12, 29)
-	};
+	vector<Object*> ats;
 
 	// Create board
 	Board* board{new Board()};

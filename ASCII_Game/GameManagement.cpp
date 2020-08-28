@@ -105,7 +105,36 @@ GameManagement::GameManagement() {
 	this->addPercentToMoveableObjVector(28, 20, 23, 36, 17, 28);
 	this->addPercentToMoveableObjVector(28, 20, 23, 36, 17, 28);
 	
-	
+	// ADD ATS
+	this->ats.push_back(new At(56, 26));
+	this->ats.push_back(new At(12, 29))
+		;
+	this->ats.push_back(new At(1, 13));
+	this->ats.push_back(new At(4, 13));
+	this->ats.push_back(new At(6, 13));
+
+	this->ats.push_back(new At(2, 12));
+	this->ats.push_back(new At(4, 12));
+	this->ats.push_back(new At(6, 12));
+	this->ats.push_back(new At(11, 12));
+
+	this->ats.push_back(new At(2, 11));
+	this->ats.push_back(new At(3, 11));
+	this->ats.push_back(new At(4, 11));
+	this->ats.push_back(new At(7, 11));
+
+	this->ats.push_back(new At(2, 10));
+	this->ats.push_back(new At(5, 10));
+	this->ats.push_back(new At(8, 10));
+
+	this->ats.push_back(new At(1, 9));
+	this->ats.push_back(new At(4, 9));
+	this->ats.push_back(new At(9, 9));
+	this->ats.push_back(new At(11, 9));
+
+	this->ats.push_back(new At(3, 8));
+	this->ats.push_back(new At(10, 8));
+		
 }
 
 GameManagement::~GameManagement()
