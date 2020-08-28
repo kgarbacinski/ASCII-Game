@@ -3,6 +3,7 @@
 #include <thread>
 #include <mutex>
 #include <iostream>
+#include <conio.h>
 
 enum Colours {
 	NONE = 0,
@@ -21,5 +22,7 @@ class WindowHandler
 protected:
 	void gotoxy(const int& x, const int& y);
 	void changeColor(const int& nameNumber);
+
+	//virtual ~WindowHandler() = 0;
 };
 
