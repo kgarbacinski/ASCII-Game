@@ -2,8 +2,8 @@
 class Player
 {
 private:
-	const int startxPos{ 56 }; // 2
-	const int startyPos{ 32 }; // 36
+	const int startxPos{ 2 }; // 2
+	const int startyPos{ 36 }; // 36
 	const int timeDelay{ 100000 };
 
 	int xPos{startxPos}, yPos{startyPos};
