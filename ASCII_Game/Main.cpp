@@ -12,6 +12,7 @@ int main() {
 
 	menu->drawMenu();
 
+	system("cls"); // clear menud
 	/* Initializing objects */
 	GameManagement* gameManager = GameManagement::getInstance();
 
@@ -27,7 +28,8 @@ int main() {
 	gameManager->drawBoard();
 	gameManager->putPlayer();
 	gameManager->putShotObjects(); // put on ascii board
-	gameManager->drawShotObjects(); 
+	gameManager->drawShotObjects();
+	gameManager->drawCheckpoints();
 	gameManager->putMovObjects();
 	gameManager->drawMovObjects();
 

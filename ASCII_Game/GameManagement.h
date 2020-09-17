@@ -11,7 +11,11 @@
 #include "ShootableObjectFactory.h"
 #include "MovableObjectFactory.h"
 #include <memory>
+#include <stack>
 
+using std::make_pair;
+using std::stack;
+using std::pair;
 using std::unique_ptr;
 using std::find_if;
 using namespace std::chrono;
@@ -44,6 +48,9 @@ private:
 	//Create player
 	Player* player{new Player()};
 
+	//Checkpoints
+	stack<pair<int, int>> checkpointsStack;
+
 	static GameManagement* instance;
 	GameManagement();
 	~GameManagement();
@@ -61,6 +68,8 @@ public:
 	void putShotObjects();
 	void putMovObjects();
 	void drawMovObjects();
+	void drawCheckpoints();
+
 	void clearCell(const int& xPos, const int& yPos);
 	void drawBoard();
 
@@ -71,6 +80,7 @@ public:
 	void killPlayer();
 
 	CollisionState checkIfCollision(const int& newXPos, const int& newYPos, char currType);
+	bool checkIfCheckpoint(const int& newXPos, const int& newYPos);
 
 	//Cannons
 	void initBullet(ShootableObject* cannon, const int& xMove, const int& yMove);
