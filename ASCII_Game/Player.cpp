@@ -34,6 +34,22 @@ const int& Player::getHealth() const
 	return this->health;
 }
 
+const int& Player::getXCheckpoint() const
+{
+	return this->xCheckpoint;
+}
+
+const int& Player::getYCheckpoint() const
+{
+	return this->yCheckpoint;
+}
+
+void Player::setCheckpoint(const int& xPos, const int& yPos)
+{
+	this->xCheckpoint = xPos;
+	this->yCheckpoint = yPos;
+}
+
 void Player::setxPos(const int& _xPos)
 {
 	this->xPos = _xPos; 

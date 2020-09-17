@@ -39,14 +39,20 @@ void Menu::drawMenu()
 
 void Menu::waitForInput()
 {
-	while (true) {
+	while (isMenuRunning) {
 		switch (_getch()) {
 			case 115:
 				this->moveCursor(0, 1);
 				break;
+			case 119:
+				this->moveCursor(0,-1);
+				break;
+			case 13:
+				this->checkConfirmation();
 		}
 	}
 }
+
 
 void Menu::drawCursor()
 {
@@ -62,10 +68,27 @@ void Menu::clearCursor()
 
 void Menu::moveCursor(int xMove, int yMove)
 {
-	if (this->cursorYPos + yMove < this->windowHeight / 2 + noOptions) {
+	if (this->cursorYPos + yMove < this->windowHeight / 2 + noOptions && 
+		this->cursorYPos + yMove > this->windowHeight / 2 - 1) {
 		this->clearCursor();
 		this->cursorYPos += yMove;
 		this->drawCursor();
+
+		this->currOption += yMove;
 	}
 
+}
+
+void Menu::checkConfirmation()
+{
+	switch (this->currOption) {
+		case 0: // START
+			this->isMenuRunning = false;
+			break;
+		case 1: // EXIT
+			this->isMenuRunning = false;
+			system("cls");
+			exit(0);
+			break;
+	}
 }

@@ -27,8 +27,6 @@ GameManagement::GameManagement() {
 	this->addCannonToShootableObjVector(27, 29, timeDelay::CANNON_FAST, true, 'D');
 	this->addCannonToShootableObjVector(28, 29, timeDelay::CANNON_FAST, true, 'D');
 	this->addCannonToShootableObjVector(29, 29, timeDelay::CANNON_FAST, true, 'D');
-
-	this->addCannonToShootableObjVector(30, 29, timeDelay::CANNON_FAST, true, 'D');
 	this->addCannonToShootableObjVector(31, 29, timeDelay::CANNON_SLOW, true, 'D');
 	this->addCannonToShootableObjVector(32, 29, timeDelay::CANNON_FAST, true, 'D');
 	this->addCannonToShootableObjVector(33, 29, timeDelay::CANNON_SLOW, true, 'D');
@@ -134,6 +132,11 @@ GameManagement::GameManagement() {
 
 	this->ats.push_back(new At(3, 8));
 	this->ats.push_back(new At(10, 8));
+
+	// Create checkpoints
+	//this->checkpointsStack.push(make_pair(4, 23));
+	this->checkpointsStack.push(make_pair(2, 34));
+	this->checkpointsStack.push(make_pair(1, 34));
 		
 }
 
@@ -196,8 +199,8 @@ void GameManagement::killPlayer()
 {
 	this->clearCell(this->player->getxPos(), this->player->getyPos());
 	this->board->modifyBoardASCII(this->player->getxPos(), this->player->getyPos(), ' ');
-	this->player->setxPos(this->player->getStartxPos());
-	this->player->setyPos(this->player->getStartyPos());
+	this->player->setxPos(this->player->getXCheckpoint());
+	this->player->setyPos(this->player->getYCheckpoint());
 	this->putPlayer();
 }
 
@@ -274,6 +277,12 @@ void GameManagement::movePlayer()
 				this->putPlayer();
 			}
 		}
+
+		if (this->checkIfCheckpoint(xPos - 1, yPos)) {
+			int x = this->checkpointsStack.top().first, y = this->checkpointsStack.top().second;
+			this->checkpointsStack.pop();
+			this->player->setCheckpoint(x, y);
+		}
 	}
 
 	else if (GetKeyState('D') & 0x8000) {
@@ -300,6 +309,12 @@ void GameManagement::movePlayer()
 			}
 		}
 
+		if (this->checkIfCheckpoint(xPos + 1, yPos)) {
+			int x = this->checkpointsStack.top().first, y = this->checkpointsStack.top().second;
+			this->checkpointsStack.pop();
+			this->player->setCheckpoint(x, y);
+		}
+
 	}
 	else if (GetKeyState('W') & 0x8000) {
 		if (this->checkIfCollision(xPos, yPos - 1, 'p') == CollisionState::EMPTY_FIELD) {
@@ -322,6 +337,12 @@ void GameManagement::movePlayer()
 
 				this->putPlayer();
 			}
+		}
+
+		if (this->checkIfCheckpoint(xPos, yPos - 1)) {
+			int x = this->checkpointsStack.top().first, y = this->checkpointsStack.top().second;
+			this->checkpointsStack.pop();
+			this->player->setCheckpoint(x, y);
 		}
 	}
 	else if (GetKeyState('S') & 0x8000) {
@@ -346,6 +367,12 @@ void GameManagement::movePlayer()
 				this->putPlayer();
 			}
 		}
+
+		if (this->checkIfCheckpoint(xPos, yPos + 1)) {
+			int x = this->checkpointsStack.top().first, y = this->checkpointsStack.top().second;
+			this->checkpointsStack.pop();
+			this->player->setCheckpoint(x, y);
+		}
 	}
 }
 
@@ -369,6 +396,15 @@ CollisionState GameManagement::checkIfCollision(const int& newXPos, const int& n
 	}
 
 	return CollisionState::EMPTY_FIELD; // empty field
+}
+
+bool GameManagement::checkIfCheckpoint(const int& newXPos, const int& newYPos)
+{
+	if (!this->checkpointsStack.empty() && newXPos == this->checkpointsStack.top().first &&
+		newYPos == this->checkpointsStack.top().second) {
+		return true;
+	}
+	return false;
 }
 
 void GameManagement::moveBullet(ShootableObject* cannon, const int& xMove, const int& yMove)
@@ -483,6 +519,18 @@ void GameManagement::drawMovObjects()
 		this->gotoxy(object->getXPos(), object->getYPos());
 		object->drawObject();
 		this->changeColor(WHITE);
+	}
+}
+
+void GameManagement::drawCheckpoints()
+{
+	auto stackCopy = this->checkpointsStack;
+
+	while (!stackCopy.empty()) {
+		auto pair = stackCopy.top();
+		this->gotoxy(pair.first, pair.second);
+		cout << 'C';
+		stackCopy.pop();
 	}
 }
 

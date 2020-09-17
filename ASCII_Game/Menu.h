@@ -4,7 +4,9 @@
 class Menu : public WindowHandler
 {
 private:
-	const int noOptions = 2;
+	const int noOptions{ 2 };
+	int currOption{ 0 }; // init with start pos
+	bool isMenuRunning{ true };
 	int windowWidth;
 	int windowHeight;
 	int cursorXPos;
@@ -20,5 +22,6 @@ public:
 	void drawCursor();
 	void clearCursor();
 	void moveCursor(int xMove, int yMove);
+	void checkConfirmation();
 };
 
