@@ -7,21 +7,13 @@ using namespace std;
 
 int main() {
 	srand(time(NULL));
-<<<<<<< HEAD
-=======
 
-<<<<<<< HEAD
->>>>>>> b77d54b39027634d29921ea3bd162fbefe868007
-=======
 	Menu* menu = Menu::getInstance();
 
 	menu->drawMenu();
 
-<<<<<<< HEAD
->>>>>>> f3d3281e3b741bc6af659509302e56ee7ba79342
-=======
 	system("cls"); // clear menud
->>>>>>> 27b35a2a9be60775179ddca87f501b40f3d95bb2
+
 	/* Initializing objects */
 	GameManagement* gameManager = GameManagement::getInstance();
 
