@@ -9,7 +9,8 @@
 - Efficient collision and movement engine
 
 # Introduction
-A game created with C++ 11 and design patterns. Objects (player, enemies, bullets etc) are some ASCII characters. 
+A game created with C++ 11 and design patterns (Singleton, Factory Method). 
+Objects (player, enemies, bullets etc) are some ASCII characters. 
 
 # Team-work
 - https://github.com/kgarbacinski
