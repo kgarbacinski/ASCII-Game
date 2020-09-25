@@ -23,6 +23,6 @@ protected:
 	void gotoxy(const int& x, const int& y);
 	void changeColor(const int& nameNumber);
 
-	//virtual ~WindowHandler() = 0;
+	virtual ~WindowHandler() {}
 };
 

@@ -13,7 +13,7 @@ protected:
 	char repr;
 
 public:
-	Object(int _xPos, int _yPos, char _reprVer, char _reprHor, bool _isVer) : xPos{ _xPos }, yPos{ _yPos } {
+	Object(int _xPos, int _yPos, char _reprVer, char _reprHor, bool _isVer) : xPos { _xPos }, yPos{ _yPos } {
 		if (_isVer) this->repr = _reprVer;
 		else this->repr = _reprHor;		
 	}

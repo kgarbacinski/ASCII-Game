@@ -62,6 +62,33 @@ GameManagement::GameManagement() {
 	this->addCannonToShootableObjVector(54,33, timeDelay::CANNON_SLOW, false, 'L');
 	this->addCannonToShootableObjVector(54,29, timeDelay::CANNON_SLOW, false, 'L');
 
+	this->addCannonToShootableObjVector(17,1, timeDelay::CANNON_FAST, false, 'R');
+	this->addCannonToShootableObjVector(17,2, timeDelay::CANNON_FAST, false, 'R');
+	this->addCannonToShootableObjVector(17,3, timeDelay::CANNON_FAST, false, 'R');
+	this->addCannonToShootableObjVector(17,4, timeDelay::CANNON_FAST, false, 'R');
+	this->addCannonToShootableObjVector(17,5, timeDelay::CANNON_FAST, false, 'R');
+	this->addCannonToShootableObjVector(17,6, timeDelay::CANNON_FAST, false, 'R');
+
+	this->addCannonToShootableObjVector(85,2, timeDelay::CANNON_FAST, false, 'L');
+	this->addCannonToShootableObjVector(85,3, timeDelay::CANNON_FAST, false, 'L');
+	this->addCannonToShootableObjVector(85,4, timeDelay::CANNON_FAST, false, 'L');
+	this->addCannonToShootableObjVector(85,5, timeDelay::CANNON_FAST, false, 'L');
+	this->addCannonToShootableObjVector(85,6, timeDelay::CANNON_FAST, false, 'L');
+	this->addCannonToShootableObjVector(85,7, timeDelay::CANNON_FAST, false, 'L');
+
+	this->addCannonToShootableObjVector(83,1, timeDelay::CANNON_FAST, true, 'D');
+	this->addCannonToShootableObjVector(82,1, timeDelay::CANNON_FAST, true, 'D');
+	this->addCannonToShootableObjVector(81,1, timeDelay::CANNON_FAST, true, 'D');
+	this->addCannonToShootableObjVector(80,1, timeDelay::CANNON_FAST, true, 'D');
+	this->addCannonToShootableObjVector(79,1, timeDelay::CANNON_FAST, true, 'D');
+	this->addCannonToShootableObjVector(78,1, timeDelay::CANNON_FAST, true, 'D');
+
+	this->addCannonToShootableObjVector(14,26, timeDelay::CANNON_FAST, true, 'U');
+
+	this->addCannonToShootableObjVector(47,15, timeDelay::CANNON_FAST, true, 'D');
+
+
+
 
 	/* ADD MOVEABLE OBJECTS */
 	this->addDollarToMoveableObjVector(10, 31, 'L');

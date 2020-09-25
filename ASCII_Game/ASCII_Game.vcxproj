@@ -143,14 +143,12 @@
     <ClInclude Include="Cannon.h" />
     <ClInclude Include="CannonFactory.h" />
     <ClInclude Include="Dollar.h" />
-    <ClInclude Include="DollarFactory.h" />
     <ClInclude Include="GameManagement.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="MovableObject.h" />
     <ClInclude Include="MovableObjectFactory.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Percent.h" />
-    <ClInclude Include="PercentFactory.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="ShootableObject.h" />
     <ClInclude Include="ShootableObjectFactory.h" />
