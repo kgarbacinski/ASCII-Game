@@ -1,10 +1,10 @@
-#include "Object.h"
+#include "Object.hpp"
 
 #pragma once
 class ShootableObject : public Object
 {
 private:
-	const char reprBullet{'o'};
+	char reprBullet{'o'};
 	char shootDir;
 	int shootDelay;
 public:
@@ -12,9 +12,9 @@ public:
 	virtual ~ShootableObject() {}
 
 	void drawBullet() { cout << this->reprBullet;  }
-	const char& getReprBullet() { return this->reprBullet; }
-	const char& getShootDir() { return this->shootDir;  }
+	char getReprBullet() { return this->reprBullet; }
+	char getShootDir() { return this->shootDir;  }
 
-	const int& getShootDelay() { return this->shootDelay;  }
+	int getShootDelay() { return this->shootDelay;  }
 };
 

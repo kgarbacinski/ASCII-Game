@@ -1,18 +1,18 @@
-#include "GameManagement.h"
+#include "GameManagement.hpp"
 
 GameManagement* GameManagement::instance = nullptr;
 
-void GameManagement::addCannonToShootableObjVector(const int& _xPos, const int& _yPos, const int& _timeDelay, const bool& _isVer, const char& _shootDir)
+void GameManagement::addCannonToShootableObjVector(int _xPos, int _yPos, int _timeDelay, bool _isVer, char _shootDir)
 {
 	this->shootableObjects.push_back(this->shootableObjectFactory->createCannon(_xPos, _yPos, _timeDelay, _isVer, _shootDir));
 }
 
-void GameManagement::addPercentToMoveableObjVector(const int& _xPos, const int& _yPos, const int& _xStart, const int& _xEnd, const int& _yStart, const int& _yEnd)
+void GameManagement::addPercentToMoveableObjVector(int _xPos, int _yPos, int _xStart, int _xEnd, int _yStart, int _yEnd)
 {
 	this->movableObjects.push_back(this->movableObjectFactory->createPercent(_xPos, _yPos, _xStart, _xEnd, _yStart, _yEnd));
 }
 
-void GameManagement::addDollarToMoveableObjVector(const int& _xPos, const int& _yPos, const char& _moveDir)
+void GameManagement::addDollarToMoveableObjVector(int _xPos, int _yPos, char _moveDir)
 {
 	this->movableObjects.push_back(this->movableObjectFactory->createDollar(_xPos, _yPos, _moveDir));
 }
@@ -231,7 +231,7 @@ void GameManagement::killPlayer()
 	this->putPlayer();
 }
 
-void GameManagement::clearCell(const int& xPos, const int& yPos)
+void GameManagement::clearCell(int xPos, int yPos)
 {
 	gotoxy(xPos, yPos);
 	cout << ' ';
@@ -245,11 +245,11 @@ void GameManagement::drawBoard() {
 	}
 }
 
-vector<Object*>::iterator GameManagement::findAt(const int& xPos, const int& yPos) {
+vector<Object*>::iterator GameManagement::findAt(int xPos, int yPos) {
 	return find_if(this->ats.begin(), this->ats.end(), [xPos, yPos](Object* at) { return at->getXPos() == xPos && at->getYPos() == yPos; });
 }
 
-bool GameManagement::moveAt(Object* at, const int& xDir, const int& yDir) {
+bool GameManagement::moveAt(Object* at, int xDir, int yDir) {
 	int xPos = at->getXPos(), yPos = at->getYPos();
 
 	if (checkIfCollision(xPos + xDir, yPos + yDir, '@') != CollisionState::WALL && 
@@ -403,7 +403,7 @@ void GameManagement::movePlayer()
 	}
 }
 
-CollisionState GameManagement::checkIfCollision(const int& newXPos, const int& newYPos, char currType)
+CollisionState GameManagement::checkIfCollision(int newXPos, int newYPos, char currType)
 {
 	vector<string> boardASCII = this->board->getBoardASCII();
 	// Check wall
@@ -425,7 +425,7 @@ CollisionState GameManagement::checkIfCollision(const int& newXPos, const int& n
 	return CollisionState::EMPTY_FIELD; // empty field
 }
 
-bool GameManagement::checkIfCheckpoint(const int& newXPos, const int& newYPos)
+bool GameManagement::checkIfCheckpoint(int newXPos, int newYPos)
 {
 	if (!this->checkpointsStack.empty() && newXPos == this->checkpointsStack.top().first &&
 		newYPos == this->checkpointsStack.top().second) {
@@ -434,7 +434,7 @@ bool GameManagement::checkIfCheckpoint(const int& newXPos, const int& newYPos)
 	return false;
 }
 
-void GameManagement::moveBullet(ShootableObject* cannon, const int& xMove, const int& yMove)
+void GameManagement::moveBullet(ShootableObject* cannon, int xMove, int yMove)
 {
 	vector<string> boardASCII = this->board->getBoardASCII();
 	// Move Vertically
@@ -513,7 +513,7 @@ void GameManagement::moveBullet(ShootableObject* cannon, const int& xMove, const
 	}
 }
 
-void GameManagement::drawBullet(const int& xPos, const int& yPos) {
+void GameManagement::drawBullet(int xPos, int yPos) {
 	this->changeColor(RED);
 	this->gotoxy(xPos, yPos);
 
@@ -522,7 +522,7 @@ void GameManagement::drawBullet(const int& xPos, const int& yPos) {
 }
 
 
-void GameManagement::initBullet(ShootableObject* cannon, const int& xMove, const int& yMove) {
+void GameManagement::initBullet(ShootableObject* cannon, int xMove, int yMove) {
 	if (checkIfCollision(cannon->getXPos() + xMove, cannon->getYPos() + yMove, 'o') == CollisionState::EMPTY_FIELD) {
 		this->board->modifyBoardASCII(cannon->getXPos() + xMove, cannon->getYPos() + yMove, 'o');
 	}

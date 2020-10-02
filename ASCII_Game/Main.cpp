@@ -1,8 +1,8 @@
 #include <iostream>
 #include <thread>   
-#include "GameManagement.h"
-#include "Cannon.h"
-#include "Menu.h"
+#include "GameManagement.hpp"
+#include "Cannon.hpp"
+#include "Menu.hpp"
 using namespace std; 
 
 int main() {

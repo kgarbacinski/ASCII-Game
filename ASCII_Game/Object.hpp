@@ -1,7 +1,7 @@
 #include <windows.h>
 #include <iostream>
 
-#include "WindowHandler.h"
+#include "WindowHandler.hpp"
 
 using std::cout;
 #pragma once
@@ -23,11 +23,11 @@ public:
 		cout << this->repr;
 	}
 
-	const char& getRepr() const { return this->repr; }
-	const int& getXPos() const { return this->xPos; }
-	const int& getYPos() const { return this->yPos; }
+	char getRepr() const { return this->repr; }
+	int getXPos() const { return this->xPos; }
+	int getYPos() const { return this->yPos; }
 
-	void setXPos(const int& _xPos) { this->xPos = _xPos; }
-	void setYPos(const int& _yPos) { this->yPos = _yPos; }
+	void setXPos(int _xPos) { this->xPos = _xPos; }
+	void setYPos(int _yPos) { this->yPos = _yPos; }
 };
 

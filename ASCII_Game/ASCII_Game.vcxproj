@@ -138,21 +138,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="At.h" />
-    <ClInclude Include="Board.h" />
-    <ClInclude Include="Cannon.h" />
-    <ClInclude Include="CannonFactory.h" />
-    <ClInclude Include="Dollar.h" />
-    <ClInclude Include="GameManagement.h" />
-    <ClInclude Include="Menu.h" />
-    <ClInclude Include="MovableObject.h" />
-    <ClInclude Include="MovableObjectFactory.h" />
-    <ClInclude Include="Object.h" />
-    <ClInclude Include="Percent.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="ShootableObject.h" />
-    <ClInclude Include="ShootableObjectFactory.h" />
-    <ClInclude Include="WindowHandler.h" />
+    <ClInclude Include="At.hpp" />
+    <ClInclude Include="Board.hpp" />
+    <ClInclude Include="Cannon.hpp" />
+    <ClInclude Include="Dollar.hpp" />
+    <ClInclude Include="GameManagement.hpp" />
+    <ClInclude Include="Menu.hpp" />
+    <ClInclude Include="MovableObject.hpp" />
+    <ClInclude Include="MovableObjectFactory.hpp" />
+    <ClInclude Include="Object.hpp" />
+    <ClInclude Include="Percent.hpp" />
+    <ClInclude Include="Player.hpp" />
+    <ClInclude Include="ShootableObject.hpp" />
+    <ClInclude Include="ShootableObjectFactory.hpp" />
+    <ClInclude Include="WindowHandler.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="At.cpp" />

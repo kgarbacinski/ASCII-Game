@@ -1,15 +1,15 @@
 #include <algorithm>
 #include <chrono>
 #include <windows.h>
-#include "WindowHandler.h"
-#include "Board.h"
-#include "Player.h"
-#include "Cannon.h"
-#include "Dollar.h"
-#include "Percent.h"
-#include "At.h"
-#include "ShootableObjectFactory.h"
-#include "MovableObjectFactory.h"
+#include "WindowHandler.hpp"
+#include "Board.hpp"
+#include "Player.hpp"
+#include "Cannon.hpp"
+#include "Dollar.hpp"
+#include "Percent.hpp"
+#include "At.hpp"
+#include "ShootableObjectFactory.hpp"
+#include "MovableObjectFactory.hpp"
 #include <memory>
 #include <stack>
 
@@ -37,9 +37,9 @@ private:
 	vector<ShootableObject*> shootableObjects;
 	vector<MovableObject*> movableObjects;
 
-	void addCannonToShootableObjVector(const int& _xPos, const int& _yPos, const int& _timeDelay, const bool& _isVer, const char& _shootDir);
-	void addPercentToMoveableObjVector(const int& _xPos, const int& _yPos, const int& _xStart, const int& _xEnd, const int& _yStart, const int& _yEnd);
-	void addDollarToMoveableObjVector(const int& _xPos, const int& _yPos, const char& _moveDir);
+	void addCannonToShootableObjVector(int _xPos, int _yPos, int _timeDelay, bool _isVer, char _shootDir);
+	void addPercentToMoveableObjVector(int _xPos, int _yPos, int _xStart, int _xEnd, int _yStart, int _yEnd);
+	void addDollarToMoveableObjVector(int _xPos, int _yPos, char _moveDir);
 
 	vector<Object*> ats;
 
@@ -70,7 +70,7 @@ public:
 	void drawMovObjects();
 	void drawCheckpoints();
 
-	void clearCell(const int& xPos, const int& yPos);
+	void clearCell(int xPos, int yPos);
 	void drawBoard();
 
 	// Player
@@ -79,14 +79,14 @@ public:
 	void drawPlayer();
 	void killPlayer();
 
-	CollisionState checkIfCollision(const int& newXPos, const int& newYPos, char currType);
-	bool checkIfCheckpoint(const int& newXPos, const int& newYPos);
+	CollisionState checkIfCollision(int newXPos, int newYPos, char currType);
+	bool checkIfCheckpoint(int newXPos, int newYPos);
 
 	//Cannons
-	void initBullet(ShootableObject* cannon, const int& xMove, const int& yMove);
+	void initBullet(ShootableObject* cannon, int xMove, int yMove);
 	void shootCannon(long long mcr);
-	void moveBullet(ShootableObject* cannon, const int& xMove,const int& yMove);
-	void drawBullet(const int& xPos, const int& yPos);
+	void moveBullet(ShootableObject* cannon, int xMove, int yMove);
+	void drawBullet(int xPos, int yPos);
 
 	//Dollars
 	void moveObjects();
@@ -94,8 +94,8 @@ public:
 	//Ats
 	void putAt(Object* at);
 	void drawAt(Object* at);
-	vector<Object*>::iterator findAt(const int& xPos, const int& yPos);
-	bool moveAt(Object* at, const int& xDir, const int& yDir);
+	vector<Object*>::iterator findAt(int xPos, int yPos);
+	bool moveAt(Object* at, int xDir, int yDir);
 
 	const vector<Object*>& getAts() const;
 

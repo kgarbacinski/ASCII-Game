@@ -1,4 +1,4 @@
-#include "MovableObject.h"
+#include "MovableObject.hpp"
 
 #pragma once
 class Percent : public MovableObject
@@ -9,7 +9,7 @@ private:
 	int yStart;
 	int yEnd;
 public:
-	Percent(const int& _xPos, const int& _yPos, const int& _xStart, const int& _xEnd, const int& _yStart, const int& _yEnd);
+	Percent(int _xPos, int _yPos, int _xStart, int _xEnd, int _yStart, int _yEnd);
 	~Percent() override;
 	void moveObject() override;
 };

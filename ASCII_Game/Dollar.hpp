@@ -1,10 +1,10 @@
-#include "MovableObject.h"
+#include "MovableObject.hpp"
 
 #pragma once
 class Dollar : public MovableObject
 {
 public:
-	Dollar(const int& _xPos, const int& _yPos, const char& _moveDir);
+	Dollar(int _xPos, int _yPos, char _moveDir);
 	~Dollar();
 	void moveObject() override;
 

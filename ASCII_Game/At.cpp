@@ -1,6 +1,6 @@
-#include "At.h"
+#include "At.hpp"
 
-At::At(const int& _xPos, const int& _yPos) : Object{_xPos, _yPos, '@', '@', true}
+At::At(int _xPos, int _yPos) : Object{_xPos, _yPos, '@', '@', true}
 {
 
 }

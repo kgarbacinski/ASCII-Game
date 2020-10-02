@@ -1,6 +1,6 @@
-#include "WindowHandler.h"
+#include "WindowHandler.hpp"
 
-void WindowHandler::gotoxy(const int& x, const int& y)
+void WindowHandler::gotoxy(int x, int y)
 {
 	COORD coord;
 	coord.X = x;
@@ -8,7 +8,7 @@ void WindowHandler::gotoxy(const int& x, const int& y)
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 }
 
-void WindowHandler::changeColor(const int& nameNumber){
+void WindowHandler::changeColor(int nameNumber){
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	switch (nameNumber) {
 		case RED:
