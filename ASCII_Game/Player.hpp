@@ -1,16 +1,17 @@
 #pragma once
-class Player
+#include "Object.hpp"
+
+class Player : public Object
 {
 private:
-	int startxPos{ 2 }; // 2
-	int startyPos{ 36 }; // 36
-	int timeDelay{ 100000 };
+	const int startxPos{ 2 }; // 2
+	const int startyPos{ 36 }; // 36
 
-	int xCheckpoint{ 2 }, yCheckpoint{ 36 };
-	int xPos{startxPos}, yPos{startyPos};
-	int health{ 100 };
+	int timeDelay;
+	int xCheckpoint, yCheckpoint;
+	int health;
 public:
-	Player();
+	Player(int _timeDelay = 100000, int _xCheckpoint = 2, int _yCheckpoint = 36, int _xPos = 2, int _yPos = 36, int _health = 100);
 
 	int getStartxPos() const;
 	int getStartyPos() const;

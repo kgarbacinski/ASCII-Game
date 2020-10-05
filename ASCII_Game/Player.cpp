@@ -1,6 +1,7 @@
 #include "Player.hpp"
 
-Player::Player()
+Player::Player(int _timeDelay, int _xCheckpoint, int _yCheckpoint, int _xPos, int _yPos, int _health) 
+	: Object{ _xPos, _yPos, char(24), char(24), true }, timeDelay{ _timeDelay }, xCheckpoint{ _xCheckpoint }, yCheckpoint{ _yCheckpoint }, health{_health}
 {
 }
 

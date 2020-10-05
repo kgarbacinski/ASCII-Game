@@ -218,7 +218,7 @@ void GameManagement::drawPlayer() {
 	// Drawing a player
 	this->changeColor(LIGHT_BLUE);
 	this->gotoxy(this->getPlayer()->getxPos(), this->getPlayer()->getyPos()); // place console cursor on certain pos
-	cout << 'I';
+	cout << this->player->getRepr();
 	this->changeColor(WHITE);
 }
 
@@ -287,6 +287,7 @@ void GameManagement::movePlayer()
 
 			this->board->modifyBoardASCII(xPos, yPos, ' ');
 
+			this->player->setRepr('<');
 			this->player->setxPos(xPos - 1);
 
 			this->putPlayer();
@@ -318,6 +319,7 @@ void GameManagement::movePlayer()
 
 			this->board->modifyBoardASCII(this->player->getxPos(), this->player->getyPos(), ' ');
 
+			this->player->setRepr('>');
 			this->player->setxPos(xPos + 1);
 
 			this->putPlayer();
@@ -349,6 +351,7 @@ void GameManagement::movePlayer()
 
 			this->board->modifyBoardASCII(this->player->getxPos(), this->player->getyPos(), ' ');
 
+			this->player->setRepr(char(24));
 			this->player->setyPos(yPos - 1);
 			this->putPlayer();
 		}
@@ -378,6 +381,7 @@ void GameManagement::movePlayer()
 
 			this->board->modifyBoardASCII(this->player->getxPos(), this->player->getyPos(), ' ');
 
+			this->player->setRepr(char(25));
 			this->player->setyPos(yPos + 1);
 			this->putPlayer();
 		}

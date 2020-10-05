@@ -10,7 +10,7 @@ private:
 	int yEnd;
 public:
 	Percent(int _xPos, int _yPos, int _xStart, int _xEnd, int _yStart, int _yEnd);
-	~Percent() override;
+	~Percent();
 	void moveObject() override;
 };
 

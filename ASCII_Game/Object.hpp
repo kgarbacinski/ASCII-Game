@@ -23,6 +23,7 @@ public:
 		cout << this->repr;
 	}
 
+	void setRepr(char repr_) { this->repr = repr_; }
 	char getRepr() const { return this->repr; }
 	int getXPos() const { return this->xPos; }
 	int getYPos() const { return this->yPos; }
