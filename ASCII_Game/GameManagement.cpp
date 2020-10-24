@@ -64,8 +64,8 @@ GameManagement::GameManagement() {
 
 	this->addCannonToShootableObjVector(17,1, timeDelay::CANNON_FAST, false, 'R');
 	this->addCannonToShootableObjVector(17,2, timeDelay::CANNON_FAST, false, 'R');
-	this->addCannonToShootableObjVector(17,3, timeDelay::CANNON_FAST, false, 'R');
-	this->addCannonToShootableObjVector(17,4, timeDelay::CANNON_FAST, false, 'R');
+	this->addCannonToShootableObjVector(17,3, timeDelay::CANNON_FAST, false, 'R'); 
+	this->addCannonToShootableObjVector(17, 4, timeDelay::CANNON_FAST, false, 'R');
 	this->addCannonToShootableObjVector(17,5, timeDelay::CANNON_FAST, false, 'R');
 	this->addCannonToShootableObjVector(17,6, timeDelay::CANNON_FAST, false, 'R');
 
@@ -277,133 +277,82 @@ const vector<Object*>& GameManagement::getAts() const
 	return this->ats;
 }
 
-void GameManagement::movePlayer()
+void GameManagement::handleKeyboardInput()
+{
+	if (GetKeyState('A') & 0x8000) {
+		movePlayer(-1, 0);
+	}
+	else if (GetKeyState('D') & 0x8000) {
+		movePlayer(1, 0);
+	}
+	else if (GetKeyState('W') & 0x8000) {
+		movePlayer(0, -1);
+	}
+	else if (GetKeyState('S') & 0x8000) {
+		movePlayer(0, 1);
+	}
+	else if (GetKeyState(VK_SPACE) & 0x8000) {
+		movePlayer(0, 1);
+	}
+}
+
+void GameManagement::moveIntoNextField(int deltaX, int deltaY) {
+	int xPos = this->player->getXPos();
+	int yPos = this->player->getYPos();
+
+	char repr = '<';
+	if (deltaX == 1 && deltaY == 0) repr = '>';
+	else if (deltaX == 0 && deltaY == -1) repr = char(24);
+	else if (deltaX == 0 && deltaY == 1) repr = char(25);
+
+	this->clearCell(xPos, yPos);
+
+	this->board->modifyBoardASCII(xPos, yPos, ' ');
+
+	this->player->setRepr(repr);
+
+	this->player->setxPos(xPos + deltaX);
+	this->player->setyPos(yPos + deltaY);
+
+	this->putPlayer();
+}
+
+void GameManagement::movePlayer(int deltaX, int deltaY)
 {	
 	int xPos = this->player->getxPos(), yPos = this->player->getyPos();
 
-	if (GetKeyState('A') & 0x8000) {
-		if (this->checkIfCollision(xPos - 1, yPos, 'p') == CollisionState::EMPTY_FIELD) { // player on the wall
-			this->clearCell(xPos, yPos);
+	if (this->checkIfCollision(xPos + deltaX, yPos + deltaY, 'p') == CollisionState::EMPTY_FIELD) { // player on the wall
+		this->moveIntoNextField(deltaX, deltaY);			
+	}
+	else if (this->checkIfCollision(xPos + deltaX, yPos + deltaY, 'p') == CollisionState::DEATH) { // player's death
+		this->killPlayer();
+	}
+	else if (this->checkIfCollision(xPos + deltaX, yPos + deltaY, 'p') == CollisionState::AT) { // next field contains at
+		vector<Object*>::iterator it = this->findAt(xPos + deltaX, yPos + deltaY);
+			
+		if (it != this->ats.end() && this->moveAt(*it, deltaX, deltaY)) {
 
+			this->clearCell(xPos, yPos);
 			this->board->modifyBoardASCII(xPos, yPos, ' ');
-
-			this->player->setRepr('<');
-			this->player->setxPos(xPos - 1);
+			this->player->setxPos(xPos + deltaX);
+			this->player->setyPos(yPos + deltaY);
 
 			this->putPlayer();
-		}
-		else if (this->checkIfCollision(xPos - 1, yPos, 'p') == CollisionState::DEATH) { // player's death
-			this->killPlayer();
-		}
-		else if (this->checkIfCollision(xPos - 1, yPos, 'p') == CollisionState::AT) { // next field contains at
-			vector<Object*>::iterator it = this->findAt(xPos - 1, yPos);
-			if (it != this->ats.end() && this->moveAt(*it, -1, 0)) {
-				this->clearCell(xPos, yPos);
-				this->board->modifyBoardASCII(xPos, yPos, ' ');
-				this->player->setxPos(xPos - 1);
-
-				this->putPlayer();
-			}
-		}
-
-		if (this->checkIfCheckpoint(xPos - 1, yPos)) {
-			int x = this->checkpointsStack.top().first, y = this->checkpointsStack.top().second;
-			this->checkpointsStack.pop();
-			this->player->setCheckpoint(x, y);
 		}
 	}
 
-	else if (GetKeyState('D') & 0x8000) {
-		if (this->checkIfCollision(xPos + 1, yPos, 'p') == CollisionState::EMPTY_FIELD) {
-			this->clearCell(xPos, yPos);
-
-			this->board->modifyBoardASCII(this->player->getxPos(), this->player->getyPos(), ' ');
-
-			this->player->setRepr('>');
-			this->player->setxPos(xPos + 1);
-
-			this->putPlayer();
-		}
-		else if (this->checkIfCollision(xPos + 1, yPos, 'p') == CollisionState::DEATH) {
-			this->killPlayer();
-		}
-		else if (this->checkIfCollision(xPos + 1, yPos, 'p') == CollisionState::AT) { // next field contains at
-			vector<Object*>::iterator it = this->findAt(xPos + 1, yPos);
-			if (it != this->ats.end() && this->moveAt(*it, 1, 0)) {
-				this->clearCell(xPos, yPos);
-				this->board->modifyBoardASCII(xPos, yPos, ' ');
-				this->player->setxPos(xPos + 1);
-
-				this->putPlayer();
-			}
-		}
-
-		if (this->checkIfCheckpoint(xPos + 1, yPos)) {
-			int x = this->checkpointsStack.top().first, y = this->checkpointsStack.top().second;
-			this->checkpointsStack.pop();
-			this->player->setCheckpoint(x, y);
-		}
-
+	if (this->checkIfCheckpoint(xPos + deltaX, yPos + deltaY)) {
+		int x = this->checkpointsStack.top().first, y = this->checkpointsStack.top().second;
+		this->checkpointsStack.pop();
+		this->player->setCheckpoint(x, y);
 	}
-	else if (GetKeyState('W') & 0x8000) {
-		if (this->checkIfCollision(xPos, yPos - 1, 'p') == CollisionState::EMPTY_FIELD) {
-			this->clearCell(xPos, yPos);
+	
+}
+void GameManagement::playerAttack() {
+	switch (this->player->getRepr()) {
+		case '<':
 
-			this->board->modifyBoardASCII(this->player->getxPos(), this->player->getyPos(), ' ');
-
-			this->player->setRepr(char(24));
-			this->player->setyPos(yPos - 1);
-			this->putPlayer();
-		}
-		else if (this->checkIfCollision(xPos, yPos - 1, 'p') == CollisionState::DEATH) {
-			this->killPlayer();
-		}
-		else if (this->checkIfCollision(xPos, yPos - 1, 'p') == CollisionState::AT) { // next field contains at
-			vector<Object*>::iterator it = this->findAt(xPos, yPos - 1);
-			if (it != this->ats.end() && this->moveAt(*it, 0, -1)) {
-				this->clearCell(xPos, yPos);
-				this->board->modifyBoardASCII(xPos, yPos, ' ');
-				this->player->setyPos(yPos - 1);
-
-				this->putPlayer();
-			}
-		}
-
-		if (this->checkIfCheckpoint(xPos, yPos - 1)) {
-			int x = this->checkpointsStack.top().first, y = this->checkpointsStack.top().second;
-			this->checkpointsStack.pop();
-			this->player->setCheckpoint(x, y);
-		}
-	}
-	else if (GetKeyState('S') & 0x8000) {
-		if (this->checkIfCollision(xPos, yPos + 1, 'p') == CollisionState::EMPTY_FIELD) {
-			this->clearCell(xPos, yPos);
-
-			this->board->modifyBoardASCII(this->player->getxPos(), this->player->getyPos(), ' ');
-
-			this->player->setRepr(char(25));
-			this->player->setyPos(yPos + 1);
-			this->putPlayer();
-		}
-		else if (this->checkIfCollision(xPos, yPos + 1, 'p') == CollisionState::DEATH) {
-			this->killPlayer();
-		}
-		else if (this->checkIfCollision(xPos, yPos + 1, 'p') == CollisionState::AT) { // next field contains at
-			vector<Object*>::iterator it = this->findAt(xPos, yPos + 1);
-			if (it != this->ats.end() && this->moveAt(*it, 0, 1)) {
-				this->clearCell(xPos, yPos);
-				this->board->modifyBoardASCII(xPos, yPos, ' ');
-				this->player->setyPos(yPos + 1);
-
-				this->putPlayer();
-			}
-		}
-
-		if (this->checkIfCheckpoint(xPos, yPos + 1)) {
-			int x = this->checkpointsStack.top().first, y = this->checkpointsStack.top().second;
-			this->checkpointsStack.pop();
-			this->player->setCheckpoint(x, y);
-		}
+			return;
 	}
 }
 
@@ -438,82 +387,73 @@ bool GameManagement::checkIfCheckpoint(int newXPos, int newYPos)
 	return false;
 }
 
-void GameManagement::moveBullet(ShootableObject* cannon, int xMove, int yMove)
-{
-	vector<string> boardASCII = this->board->getBoardASCII();
-	// Move Vertically
-	if (yMove != 0 && xMove == 0) {
-		int y;
-		for (y = cannon->getYPos() + yMove; boardASCII.at(y).at(cannon->getXPos()) != 'o'; y += yMove) {
-			if (boardASCII.at(y).at(cannon->getXPos()) == '#') {
-				this->initBullet(cannon, xMove, yMove);
-				return;
-			}
-		}
-		// For Empty Field
-		if (checkIfCollision(cannon->getXPos(), y + yMove, 'o') == CollisionState::EMPTY_FIELD) {
-			this->board->modifyBoardASCII(cannon->getXPos(), y, ' ');
-			this->board->modifyBoardASCII(cannon->getXPos(), y + yMove, 'o');
+void GameManagement::handleShootableObjectBullet(ShootableObject* cannon, int xToHandle, int yToHandle, int deltaX, int deltaY) {
+	auto modifyBoardAndScreen = [this, xToHandle, yToHandle, deltaX, deltaY]() mutable {
+		this->board->modifyBoardASCII(xToHandle, yToHandle, ' ');
+		this->board->modifyBoardASCII(xToHandle + deltaX, yToHandle + deltaY, 'o');
 
-			this->clearCell(cannon->getXPos(), y);
-			this->drawBullet(cannon->getXPos(), y + yMove);
+		this->clearCell(xToHandle, yToHandle);
+		this->drawBullet(xToHandle + deltaX, yToHandle + deltaY);
+	};
+
+	if (checkIfCollision(xToHandle + deltaX, yToHandle + deltaY, 'o') == CollisionState::EMPTY_FIELD) {
+		modifyBoardAndScreen();
+	}
+	else if (checkIfCollision(xToHandle + deltaX, yToHandle + deltaY, 'o') == CollisionState::DEATH) {
+		this->killPlayer();
+
+		modifyBoardAndScreen();
+	}
+	else if ((checkIfCollision(xToHandle + deltaX, yToHandle + deltaY, 'o') == CollisionState::WALL ||
+		checkIfCollision(xToHandle + deltaX, yToHandle + deltaY, 'o') == CollisionState::AT)) {
 		
-		}
-		// For Player
-		else if (checkIfCollision(cannon->getXPos(), y + yMove, 'o') == CollisionState::DEATH) {
-			this->killPlayer();
+		this->board->modifyBoardASCII(xToHandle, yToHandle, ' ');
+		this->clearCell(xToHandle, yToHandle);
+		this->initBullet(cannon, deltaX, deltaY);
 
-			this->board->modifyBoardASCII(cannon->getXPos(), y, ' ');
-			this->board->modifyBoardASCII(cannon->getXPos(), y + yMove, 'o');
+		this->drawBullet(cannon->getXPos() + deltaX, cannon->getYPos() + deltaY);
+	}
+}
 
-			this->clearCell(cannon->getXPos(), y);
-			this->drawBullet(cannon->getXPos(), y + yMove);
-		}
+void GameManagement::moveBulletVertically(ShootableObject* cannon, int deltaX, int deltaY) {
+	vector<string> boardASCII = this->board->getBoardASCII();
 
-		// For Wall
-		else if ((checkIfCollision(cannon->getXPos(), y + yMove, 'o') == CollisionState::WALL ||
-			checkIfCollision(cannon->getXPos(), y + yMove, 'o') == CollisionState::AT)) {
-			this->board->modifyBoardASCII(cannon->getXPos(), y, ' ');
-			this->initBullet(cannon, xMove, yMove);
-
-			this->clearCell(cannon->getXPos(), y);
-			this->drawBullet(cannon->getXPos(), cannon->getYPos() + yMove);
+	int y;
+	for (y = cannon->getYPos() + deltaY; boardASCII.at(y).at(cannon->getXPos()) != 'o'; y += deltaY) {
+		if (boardASCII.at(y).at(cannon->getXPos()) == '#') {
+			this->initBullet(cannon, deltaX, deltaY);
+			return;
 		}
 	}
+
+	handleShootableObjectBullet(cannon, cannon->getXPos(), y, deltaX, deltaY);
+}
+
+void GameManagement::moveBulletHorizontally(ShootableObject* cannon, int deltaX, int deltaY) {
+	vector<string> boardASCII = this->board->getBoardASCII();
+
+	int x = cannon->getXPos() + deltaX;
+	while (boardASCII.at(cannon->getYPos()).at(x) != 'o') {
+		if (boardASCII.at(cannon->getYPos()).at(x) == '#') {
+			this->initBullet(cannon, deltaX, deltaY);
+			return;
+		}
+
+		x += deltaX;
+	}
+
+	handleShootableObjectBullet(cannon, x, cannon->getYPos(), deltaX, deltaY);	
+}
+
+void GameManagement::moveBullet(ShootableObject* cannon, int deltaX, int deltaY)
+{
+	// Move Vertically
+	if (deltaY != 0 && deltaX == 0) {
+		moveBulletVertically(cannon, deltaX, deltaY);
+	}
 	// Move Horizontally
-	else if (xMove != 0 && yMove == 0) {
-		int x;
-		for (x = cannon->getXPos() + xMove; boardASCII.at(cannon->getYPos()).at(x) != 'o'; x += xMove) {
-			if (boardASCII.at(cannon->getYPos()).at(x) == '#') {
-				this->initBullet(cannon, xMove, yMove);
-				return;
-			}
-		}
-
-		if (checkIfCollision(x + xMove, cannon->getYPos(), 'o') == CollisionState::EMPTY_FIELD) {
-			this->board->modifyBoardASCII(x, cannon->getYPos(), ' ');
-			this->board->modifyBoardASCII(x + xMove, cannon->getYPos(), 'o');
-
-			this->clearCell(x, cannon->getYPos());
-			this->drawBullet(x + xMove, cannon->getYPos());
-		}
-		else if (checkIfCollision(x + xMove, cannon->getYPos(), 'o') == CollisionState::DEATH) {
-			this->killPlayer();
-
-			this->board->modifyBoardASCII(x, cannon->getYPos(), ' ');
-			this->board->modifyBoardASCII(x + xMove, cannon->getYPos(), 'o');
-
-			this->clearCell(x, cannon->getYPos());
-			this->drawBullet(x + xMove, cannon->getYPos());
-		}
-		else if ((checkIfCollision(x + xMove, cannon->getYPos(), 'o') == CollisionState::WALL ||
-			checkIfCollision(x + xMove, cannon->getYPos(), 'o') == CollisionState::AT)) {
-			this->board->modifyBoardASCII(x, cannon->getYPos(), ' ');
-			this->initBullet(cannon, xMove, yMove);
-
-			this->clearCell(x, cannon->getYPos());
-			this->drawBullet(cannon->getXPos() + xMove, cannon->getYPos());
-		}
+	else if (deltaX != 0 && deltaY == 0) {
+		moveBulletHorizontally(cannon, deltaX, deltaY);
 	}
 }
 

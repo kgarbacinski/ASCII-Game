@@ -43,12 +43,9 @@ private:
 
 	vector<Object*> ats;
 
-	// Create board
 	Board* board{new Board()};
-	//Create player
 	Player* player{new Player()};
 
-	//Checkpoints
 	stack<pair<int, int>> checkpointsStack;
 
 	static GameManagement* instance;
@@ -74,7 +71,13 @@ public:
 	void drawBoard();
 
 	// Player
-	void movePlayer();
+	void handleKeyboardInput();
+	void moveIntoNextField(int deltaX, int deltaY);
+	void movePlayer(int deltaX, int deltaY);
+	void moveBulletHorizontally(ShootableObject* cannon, int deltaX, int deltaY);
+	void moveBulletVertically(ShootableObject* cannon, int deltaX, int deltaY);
+	void handleShootableObjectBullet(ShootableObject* cannon, int xToHandle, int yToHandle, int deltaX, int deltaY);
+	void playerAttack();
 	void putPlayer();
 	void drawPlayer();
 	void killPlayer();
@@ -83,9 +86,9 @@ public:
 	bool checkIfCheckpoint(int newXPos, int newYPos);
 
 	//Cannons
-	void initBullet(ShootableObject* cannon, int xMove, int yMove);
+	void initBullet(ShootableObject* cannon, int deltaX, int deltaY);
 	void shootCannon(long long mcr);
-	void moveBullet(ShootableObject* cannon, int xMove, int yMove);
+	void moveBullet(ShootableObject* cannon, int deltaX, int deltaY);
 	void drawBullet(int xPos, int yPos);
 
 	//Dollars

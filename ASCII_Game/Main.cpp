@@ -41,28 +41,12 @@ int main() {
 	/* Main Lopp with GameManager */
 	while (true) {
 		long long mcr = duration_cast<microseconds>(system_clock::now().time_since_epoch()).count();
-		if(!(mcr % gameManager->getPlayer()->getTimeDelay())) gameManager->movePlayer();
+		if(!(mcr % gameManager->getPlayer()->getTimeDelay())) gameManager->handleKeyboardInput();
 		if(!(mcr % timeDelay::CANNON_SLOW)) gameManager->shootCannon(timeDelay::CANNON_SLOW);
 		if(!(mcr % timeDelay::CANNON_FAST)) gameManager->shootCannon(timeDelay::CANNON_FAST);
 		if (!(mcr % timeDelay::MOVABLE_OBJECT)) {
 			gameManager->moveObjects();
 			
-		}
-
-		
-	}
-	
-	////thread shootCannonSF{gameManager->shootCannonSlow};
-	//auto shootCannonSlow = std::thread(&GameManagement::shootCannonSlow, gameManager);
-	//auto shootCannonFast = std::thread(&GameManagement::shootCannonFast, gameManager);
-	//auto movePlayer = std::thread(&GameManagement::movePlayer, gameManager);
-	//auto moveDollar = std::thread(&GameManagement::moveDollars, gameManager);
-	//auto playing = std::thread(play, gameManager);
-
-	//shootCannonSlow.join();
-	//shootCannonFast.join();
-	//movePlayer.join();
-	//moveDollar.join();
-	//playing.join();
-	
+		}	
+	}	
 }
