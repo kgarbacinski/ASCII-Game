@@ -1,66 +1,67 @@
-#include "Player.h"
+#include "Player.hpp"
 
-Player::Player()
+Player::Player(int _timeDelay, int _xCheckpoint, int _yCheckpoint, int _xPos, int _yPos, int _health) 
+	: Object{ _xPos, _yPos, char(24), char(24), true }, timeDelay{ _timeDelay }, xCheckpoint{ _xCheckpoint }, yCheckpoint{ _yCheckpoint }, health{_health}
 {
 }
 
-const int& Player::getStartxPos() const
+int Player::getStartxPos() const
 {
 	return this->startxPos;
 }
 
-const int& Player::getStartyPos() const
+int Player::getStartyPos() const
 {
 	return this->startyPos;
 }
 
-const int& Player::getTimeDelay() const
+int Player::getTimeDelay() const
 {
 	return this->timeDelay;
 }
 
-const int& Player::getxPos() const
+int Player::getxPos() const
 {
 	return this->xPos;
 }
 
-const int& Player::getyPos() const
+int Player::getyPos() const
 {
 	return this->yPos;
 }
 
-const int& Player::getHealth() const
+int Player::getHealth() const
 {
 	return this->health;
 }
 
-const int& Player::getXCheckpoint() const
+int Player::getXCheckpoint() const
 {
 	return this->xCheckpoint;
 }
 
-const int& Player::getYCheckpoint() const
+int Player::getYCheckpoint() const
 {
 	return this->yCheckpoint;
 }
 
-void Player::setCheckpoint(const int& xPos, const int& yPos)
+void Player::setCheckpoint(int xPos, int yPos)
 {
 	this->xCheckpoint = xPos;
 	this->yCheckpoint = yPos;
 }
 
-void Player::setxPos(const int& _xPos)
+void Player::setxPos(int _xPos)
 {
 	this->xPos = _xPos; 
 }
 
-void Player::setyPos(const int& _yPos)
+void Player::setyPos(int _yPos)
 {
 	this->yPos = _yPos;
 }
 
-void Player::setHealth(const int& _health)
+void Player::setHealth(int _health)
 {
 	this->health = _health; 
 

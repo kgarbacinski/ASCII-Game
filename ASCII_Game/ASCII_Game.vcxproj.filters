@@ -53,55 +53,46 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Board.h">
+    <ClInclude Include="At.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
+    <ClInclude Include="Board.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameManagement.h">
+    <ClInclude Include="Cannon.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Cannon.h">
+    <ClInclude Include="Dollar.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="WindowHandler.h">
+    <ClInclude Include="GameManagement.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Dollar.h">
+    <ClInclude Include="Menu.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="At.h">
+    <ClInclude Include="MovableObject.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MovableObject.h">
+    <ClInclude Include="MovableObjectFactory.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ShootableObject.h">
+    <ClInclude Include="Object.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Percent.h">
+    <ClInclude Include="Percent.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MovableObjectFactory.h">
+    <ClInclude Include="Player.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ShootableObjectFactory.h">
+    <ClInclude Include="ShootableObject.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DollarFactory.h">
+    <ClInclude Include="ShootableObjectFactory.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PercentFactory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CannonFactory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Object.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Menu.h">
+    <ClInclude Include="WindowHandler.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

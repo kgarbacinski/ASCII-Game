@@ -24,6 +24,6 @@ public:
 	void readBoardASCII();
 
 	vector<string> getBoardASCII();
-	void modifyBoardASCII(const int& x, const int& y, const char& newElement);
+	void modifyBoardASCII(int x, int y, char newElement);
 };
 

@@ -1,4 +1,4 @@
-#include "Object.h"
+#include "Object.hpp"
 
 enum class CollisionState {
 	EMPTY_FIELD,
@@ -38,9 +38,9 @@ public:
 	virtual ~MovableObject() {}
 	virtual void moveObject() = 0;
 
-	const int& getXDir() { return this->xDir; }
-	void setXDir(const int& _xDir) { this->xDir = _xDir; }
-	const int& getYDir() { return this->yDir; }
-	void setYDir(const int& _yDir) { this->yDir = _yDir; }
+	int getXDir() { return this->xDir; }
+	void setXDir(int _xDir) { this->xDir = _xDir; }
+	int getYDir() { return this->yDir; }
+	void setYDir(int _yDir) { this->yDir = _yDir; }
 };
 

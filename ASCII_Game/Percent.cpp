@@ -1,6 +1,6 @@
-#include "Percent.h"
+#include "Percent.hpp"
 
-Percent::Percent(const int& _xPos, const int& _yPos, const int& _xStart, const int& _xEnd, const int& _yStart, const int& _yEnd) : 
+Percent::Percent(int _xPos, int _yPos, int _xStart, int _xEnd, int _yStart, int _yEnd) : 
 	MovableObject{ 'L', _xPos, _yPos, '%', '%', true }, xStart{ _xStart }, xEnd{ _xEnd }, yStart{ _yStart }, yEnd{_yEnd} {
 
 }

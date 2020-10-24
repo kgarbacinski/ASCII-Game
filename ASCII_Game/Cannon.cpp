@@ -1,6 +1,6 @@
-#include "Cannon.h"
+#include "Cannon.hpp"
 
-Cannon::Cannon(const int& _xPos, const int& _yPos, const int& _timeDelay, const bool& _isVer, const char& _shootDir) : ShootableObject{_shootDir, _xPos, _yPos, _timeDelay, '|', '-', _isVer}
+Cannon::Cannon(int _xPos, int _yPos, int _timeDelay, bool _isVer, char _shootDir) : ShootableObject{_shootDir, _xPos, _yPos, _timeDelay, '|', '-', _isVer}
 {	
 }
 

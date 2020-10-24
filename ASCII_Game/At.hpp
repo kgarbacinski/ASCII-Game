@@ -1,12 +1,12 @@
-#include "Object.h"
+#include "Object.hpp"
 
 #pragma once
 class At : public Object
 {
 private:
 public:
-	At(const int& _xPos, const int& _yPos);
-
+	At(int _xPos, int _yPos);
+	~At() {}
 
 };
 

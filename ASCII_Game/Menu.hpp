@@ -1,4 +1,4 @@
-#include "WindowHandler.h"
+#include "WindowHandler.hpp"
 
 #pragma once
 class Menu : public WindowHandler

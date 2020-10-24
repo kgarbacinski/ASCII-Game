@@ -20,9 +20,9 @@ enum Colours {
 class WindowHandler
 {
 protected:
-	void gotoxy(const int& x, const int& y);
-	void changeColor(const int& nameNumber);
+	void gotoxy(int x, int y);
+	void changeColor(int nameNumber);
 
-	//virtual ~WindowHandler() = 0;
+	virtual ~WindowHandler() {}
 };
 
